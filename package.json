@@ -1,0 +1,33 @@
+{
+    "name": "sepm_isys2101_backend",
+    "version": "1.0.0",
+    "description": "backend for sepm",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/TuanDao2002/SEPM_ISYS2101_backend.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/TuanDao2002/SEPM_ISYS2101_backend/issues"
+    },
+    "homepage": "https://github.com/TuanDao2002/SEPM_ISYS2101_backend#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "express": "^4.17.1",
+        "express-async-errors": "^3.1.1",
+        "express-rate-limit": "^5.3.0",
+        "helmet": "^4.6.0",
+        "http-status-codes": "^2.1.4",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.13.2",
+        "rate-limiter": "^0.2.0",
+        "xss-clean": "^0.1.1"
+    }
+}
