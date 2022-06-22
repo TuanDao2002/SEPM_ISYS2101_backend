@@ -14,13 +14,11 @@ const app = express();
 const connectDB = require("./db/connect");
 
 // routers
+const authRouter = require('./routes/authRoutes')
 
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
-
-// authentication middleware
-const authenticateUser = require("./middleware/authentication");
 
 app.set("trust proxy", 1);
 app.use(
@@ -38,7 +36,7 @@ app.use(cors({
 app.use(xss());
 
 // routes
-
+app.use('/api/auth', authRouter)
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
