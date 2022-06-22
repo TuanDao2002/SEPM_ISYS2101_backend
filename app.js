@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const xss = require("xss-clean");
 const rateLimiter = require("express-rate-limit");
+const useragent = require('express-useragent'); 
 
 const express = require("express");
 const app = express();
@@ -34,6 +35,7 @@ app.use(cors({
     origin: 'http://localhost:3000/'
 }));
 app.use(xss());
+app.use(useragent.express());
 
 // routes
 app.use('/api/auth', authRouter)
