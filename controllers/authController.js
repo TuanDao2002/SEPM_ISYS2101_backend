@@ -10,9 +10,10 @@ const {
 const User = require("../models/User");
 const IP = require("../models/IP");
 
-const useragent = require('express-useragent');
+const useragent = require("express-useragent");
+const crypto = require("crypto");
 
-const login = async (req, res) => {
+const register = async (req, res) => {
     const {
         body: { username },
         ip,
@@ -24,27 +25,54 @@ const login = async (req, res) => {
             ? "s" + username + "@rmit.edu.vn"
             : role + "@gmail.com";
 
-    const findUser = await User.findOne({ username: email });
+    const findUser = await User.findOne({ email });
     if (findUser) {
-        const otp = generateOTP();
-        await sendOTPtoEmail(email, otp);
-        res.status(StatusCodes.OK).json({ email });
-
-        // const findIP = await IP.findOne({ ipAddress: ip });
-        // if (!findIP || findIP.user != findUser._id) {
-        // }
+        throw new CustomError.BadRequestError("This account already exists");
     }
 
-    await sendVerificationEmail(email, req.useragent.browser);
+    const verificationToken = crypto.randomBytes(40).toString("hex");
 
-    res.status(StatusCodes.NOT_ACCEPTABLE).json({
-        msg: "New login from this device. Check email to verify",
+    const user = await User.create({
+        username,
+        email,
+        role,
+        verificationToken,
+    });
+
+    const origin = "http://localhost:3000"; // later this is the origin link of React client side
+    await sendVerificationEmail(email, verificationToken, origin);
+
+    res.status(StatusCodes.CREATED).json({
+        msg: "Success! Please check your email to verify your account",
     });
 };
+
+const verifyEmail = async (req, res) => {
+    const { verificationToken, email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+        throw new CustomError.UnauthenticatedError('Verification Failed')
+    }
+
+    if (user.verificationToken != verificationToken) {
+        throw new CustomError.UnauthenticatedError('Verification Failed')
+    }
+
+    user.isVerified = true;
+    user.verificationToken = '';
+
+    await user.save();
+
+    res.json({ msg: "success" });
+};
+
+const login = async (req, res) => {};
 
 const verifyOTP = async (req, res) => {};
 
 module.exports = {
+    register,
+    verifyEmail,
     login,
     verifyOTP,
 };

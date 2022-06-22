@@ -12,7 +12,7 @@ module.exports = (username) => {
     const vendors = JSON.parse(process.env.LIST_VENDOR);
     for (let vendor of vendors) {
         if (username === vendor + "@gmail.com") {
-            return vendor;
+            return "vendor";
         }
     }
 

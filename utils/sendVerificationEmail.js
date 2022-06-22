@@ -1,22 +1,11 @@
-const nodemailer = require("nodemailer");
+const sendEmail = require('./sendEmail');
 
-const sendVerificationEmail = async (email, browser) => {
-    const transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com", // hostname
-        port: 465,
-        secure: true,
-        auth: {
-            user: process.env.MAIL,
-            pass: process.env.PASS,
-        },
-    });
+const sendVerificationEmail = async (email, verificationToken, origin) => {
+    // send the verification link to React and React will POST to server
 
-    return transporter.sendMail({
-        from: process.env.MAIL,
-        to: email,
-        subject: `New log in to FOOD SUGGESTION RMIT with email: ${email}`,
-        html: `There is new login to your account at ${browser} browser`,
-    });
+    const verifyEmail = `${origin}/verify-email?token=${verificationToken}&email=${email}`; 
+    const message = `<p>Please confirm your email by clicking on the following link : <a href="${verifyEmail}">Verify Email</a> </p>`;    
+    return sendEmail(email, "Email confirmation", message)
 };
 
 module.exports = sendVerificationEmail;
