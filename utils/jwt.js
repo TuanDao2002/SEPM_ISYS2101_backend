@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken");
 
-const createJWT = ({ payload }) => {
-    const token = jwt.sign(payload, process.env.JWT_SECRET);
+const createJWT = ({ payload }, secretKey) => {
+    const token = jwt.sign(payload, secretKey);
     return token;
 };
 
-const isTokenValid = (token) => jwt.verify(token, process.env.JWT_SECRET);
+const isTokenValid = (token, secretKey) => jwt.verify(token, secretKey);
 
 module.exports = {
     createJWT,

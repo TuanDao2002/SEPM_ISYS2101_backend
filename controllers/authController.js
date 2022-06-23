@@ -11,9 +11,9 @@ const {
 } = require("../utils");
 
 const User = require("../models/User");
-const IP = require("../models/IP");
 
 const useragent = require("express-useragent");
+const crypto = require("crypto");
 
 const register = async (req, res) => {
     const {
@@ -25,7 +25,10 @@ const register = async (req, res) => {
         throw new CustomError.BadRequestError("This account already exists");
     }
 
-    const verificationToken = makeToken(username);
+    const verificationToken = makeToken(
+        username,
+        process.env.VERIFICATION_SECRET
+    );
 
     const origin = "http://localhost:3000"; // later this is the origin link of React client side
     await sendVerificationEmail(
@@ -48,7 +51,10 @@ const verifyEmail = async (req, res) => {
 
     let decoded;
     try {
-        decoded = isTokenValid(verificationToken);
+        decoded = isTokenValid(
+            verificationToken,
+            process.env.VERIFICATION_SECRET
+        );
     } catch {
         throw new CustomError.UnauthenticatedError("Verification Failed");
     }
@@ -65,7 +71,7 @@ const verifyEmail = async (req, res) => {
 
     if (new Date(expirationDate).getTime() <= now.getTime()) {
         throw new CustomError.UnauthenticatedError(
-            "Verification token is expired"
+            "Verification token is expired after 2 minutes"
         );
     }
 
@@ -95,26 +101,61 @@ const verifyEmail = async (req, res) => {
 const login = async (req, res) => {
     const { username } = req.body;
     const findUser = await User.findOne({ username });
-
     if (!findUser) {
         throw new CustomError.BadRequestError("This account does not exist");
     }
 
     const otp = generateOTP();
-    
+    const expires = Date.now() + 1.5 * 60 * 1000; // expires after 90 seconds
+    const data = `${username}.${otp}.${expires}`;
+    const hash = crypto
+        .createHmac("sha256", process.env.HASH_SECRET)
+        .update(data)
+        .digest("hex");
+    const fullHash = `${hash}.${expires}`;
+
     if (!findUser.ipAddresses.includes(req.ip)) {
         await sendOTPtoEmail(findUser.email, otp, req.useragent.browser);
-        throw new CustomError.UnauthenticatedError("Login from different IP. If this is your device, check your email to verify")
+        res.status(StatusCodes.FORBIDDEN).json({
+            hash: fullHash,
+            msg: "Login from different IP. If this is your device, check your email to verify",
+        });
     }
 
     await sendOTPtoEmail(findUser.email, otp, null);
-
     res.status(StatusCodes.OK).json({
+        hash: fullHash,
         msg: `Success! Check your email for OTP to login`,
     });
 };
 
-const verifyOTP = async (req, res) => {};
+const verifyOTP = async (req, res) => {
+    const { username, otp, hash } = req.body;
+    const findUser = await User.findOne({ username });
+    if (!findUser) {
+        throw new CustomError.BadRequestError("This account does not exist");
+    }
+
+    const [hashValue, expires] = hash.split(".");
+
+    const now = Date.now();
+    if (now > parseInt(expires)) {
+        throw new CustomError.UnauthenticatedError(
+            "OTP is expired after 90 seconds"
+        );
+    }
+
+    const data = `${username}.${otp}.${expires}`;
+    const newCalculatedHash = crypto
+        .createHmac("sha256", process.env.HASH_SECRET)
+        .update(data)
+        .digest("hex");
+    if (newCalculatedHash === hashValue) {
+        res.status(StatusCodes.OK).json({ msg: "success" });
+    } else {
+        throw new CustomError.UnauthenticatedError("Login Failed");
+    }
+};
 
 module.exports = {
     register,
