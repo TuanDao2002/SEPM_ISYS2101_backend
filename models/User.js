@@ -17,6 +17,11 @@ const UserSchema = new mongoose.Schema({
         type: String,
         enum: ["vendor", "student"],
     },
+
+    ipAddresses: {
+        type: [String],
+        validate: [(val) => val.length >= 1, 'Must have at least 1 IP']
+    }
 });
 
 module.exports = mongoose.model("User", UserSchema);
