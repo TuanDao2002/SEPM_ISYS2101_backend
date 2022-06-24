@@ -1,15 +1,16 @@
-const Food = require('../models/Food');
+const Food = require("../models/Food");
 const { StatusCodes } = require("http-status-codes");
 
 const getAllFood = async (req, res) => {
-    const food = await Food.find();
-    res.status(200).json({ food });
-}
+    // const food = await Food.find();
+    // res.status(200).json({ food });
+    res.status(200).json({ msg: "create food" });
+};
 
 const createFood = async (req, res) => {
-    const food = await Food.create(req.body)
+    const food = await Food.create(req.body);
     res.status(200).json({ food });
-}
+};
 
 const updateFood = async (req, res) => {
     const { _id: foodId } = req.params;
@@ -18,33 +19,33 @@ const updateFood = async (req, res) => {
         new: true, // always return the new updated object
         runValidators: true, // always validate the attributes of the object
         useFindAndModify: false, // not show warning message
-    })
+    });
 
-    if(!food) {
+    if (!food) {
         // catch error here
     }
     res.status(200).json({ food });
-}
+};
 
 const getFood = async (req, res) => {
     const { _id: foodId } = req.params;
-    const food = await Food.findOne({ _id: foodId })
+    const food = await Food.findOne({ _id: foodId });
 
-    if(!food) {
+    if (!food) {
         // catch error here
     }
     res.status(200).json({ food });
-}
+};
 
 const deleteFood = async (req, res) => {
     const { _id: foodId } = req.params;
-    const food = await Food.findByIdAndDelete({ _id: foodId })
+    const food = await Food.findByIdAndDelete({ _id: foodId });
 
-    if(!food) {
+    if (!food) {
         // catch error here
     }
-    res.status(200).send()
-}
+    res.status(200).send();
+};
 
 module.exports = {
     getAllFood,
@@ -52,5 +53,4 @@ module.exports = {
     createFood,
     updateFood,
     deleteFood,
-}
-
+};

@@ -169,22 +169,41 @@ const verifyOTP = async (req, res) => {
         };
 
         let refreshToken = "";
-        const existingToken = await Token.findOne({
-            user: findUser._id,
-            ip: ip,
-            userAgent: req.headers["user-agent"],
-        });
+        const existingToken = await Token.findOne({ user: findUser._id });
 
         if (existingToken) {
             refreshToken = existingToken.refreshToken;
             attachCookiesToResponse({ res, user: tokenUser, refreshToken });
             res.status(StatusCodes.OK).json({ user: tokenUser });
+            return;
         }
+
+        refreshToken = crypto.randomBytes(40).toString("hex");
+        const userAgent = req.headers["user-agent"];
+        const userToken = { refreshToken, ip, userAgent, user: findUser._id };
+
+        await Token.create(userToken);
+
+        attachCookiesToResponse({ res, user: tokenUser, refreshToken });
 
         res.status(StatusCodes.OK).json({ user: tokenUser });
     } else {
         throw new CustomError.UnauthenticatedError("Login Failed");
     }
+};
+
+const logout = async (req, res) => {
+    await Token.findOneAndDelete({ user: req.user.userId });
+
+    res.cookie("accessToken", "logout", {
+        httpOnly: true,
+        expires: new Date(Date.now()),
+    });
+    res.cookie("refreshToken", "logout", {
+        httpOnly: true,
+        expires: new Date(Date.now()),
+    });
+    res.status(StatusCodes.OK).json({ msg: "Logged out successfully!" });
 };
 
 module.exports = {
