@@ -1,16 +1,18 @@
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
 const {
-    createJWT,
     isTokenValid,
-    makeToken,
+    makeVerificationToken,
     checkRole,
     generateOTP,
     sendOTPtoEmail,
     sendVerificationEmail,
+    getIP,
+    attachCookiesToResponse,
 } = require("../utils");
 
 const User = require("../models/User");
+const Token = require("../models/Token");
 
 const useragent = require("express-useragent");
 const crypto = require("crypto");
@@ -25,7 +27,7 @@ const register = async (req, res) => {
         throw new CustomError.BadRequestError("This account already exists");
     }
 
-    const verificationToken = makeToken(
+    const verificationToken = makeVerificationToken(
         username,
         process.env.VERIFICATION_SECRET
     );
@@ -86,11 +88,12 @@ const verifyEmail = async (req, res) => {
             ? "s" + username + "@rmit.edu.vn"
             : role + "@gmail.com";
 
+    const ip = getIP(req);
     const user = await User.create({
         username,
         email,
         role,
-        ipAddresses: [req.ip],
+        ipAddresses: [ip],
     });
 
     res.status(StatusCodes.OK).json({
@@ -114,12 +117,14 @@ const login = async (req, res) => {
         .digest("hex");
     const fullHash = `${hash}.${expires}`;
 
-    if (!findUser.ipAddresses.includes(req.ip)) {
+    const ip = getIP(req);
+    if (!findUser.ipAddresses.includes(ip)) {
         await sendOTPtoEmail(findUser.email, otp, req.useragent.browser);
         res.status(StatusCodes.FORBIDDEN).json({
             hash: fullHash,
             msg: "Login from different IP. If this is your device, check your email to verify",
         });
+        return;
     }
 
     await sendOTPtoEmail(findUser.email, otp, null);
@@ -151,7 +156,32 @@ const verifyOTP = async (req, res) => {
         .update(data)
         .digest("hex");
     if (newCalculatedHash === hashValue) {
-        res.status(StatusCodes.OK).json({ msg: "success" });
+        const ip = getIP(req);
+        if (!findUser.ipAddresses.includes(ip)) {
+            findUser.ipAddresses.push(req.ip);
+            await findUser.save();
+        }
+
+        const tokenUser = {
+            username: findUser.username,
+            userId: findUser._id,
+            role: findUser.role,
+        };
+
+        let refreshToken = "";
+        const existingToken = await Token.findOne({
+            user: findUser._id,
+            ip: ip,
+            userAgent: req.headers["user-agent"],
+        });
+
+        if (existingToken) {
+            refreshToken = existingToken.refreshToken;
+            attachCookiesToResponse({ res, user: tokenUser, refreshToken });
+            res.status(StatusCodes.OK).json({ user: tokenUser });
+        }
+
+        res.status(StatusCodes.OK).json({ user: tokenUser });
     } else {
         throw new CustomError.UnauthenticatedError("Login Failed");
     }

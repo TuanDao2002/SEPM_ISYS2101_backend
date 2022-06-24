@@ -1,6 +1,6 @@
 const CustomError = require("../errors");
 
-module.exports = (username) => {
+const checkRole = (username) => {
     if (username == "") {
         throw new CustomError.UnauthenticatedError("Empty username");
     }
@@ -18,3 +18,5 @@ module.exports = (username) => {
 
     throw new CustomError.UnauthenticatedError("Invalid username")
 };
+
+module.exports = checkRole
