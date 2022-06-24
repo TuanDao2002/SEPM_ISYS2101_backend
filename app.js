@@ -31,7 +31,9 @@ app.use(
 
 app.use(express.json());
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+    origin: "http://127.0.0.1:5500" // only allow website in this domain too access the resource of this server
+}));
 app.use(xss());
 app.use(useragent.express());
 
