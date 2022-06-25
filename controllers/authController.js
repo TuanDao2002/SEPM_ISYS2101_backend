@@ -18,24 +18,39 @@ const useragent = require("express-useragent");
 const crypto = require("crypto");
 
 const register = async (req, res) => {
-    const {
-        body: { username },
-    } = req;
+    const { username, verificationName } = req.body;
 
-    const findUser = await User.findOne({ username });
-    if (findUser) {
-        throw new CustomError.BadRequestError("This account already exists");
+    if (username.length < 3 || username.length > 20) {
+        throw new CustomError.BadRequestError("The username must have from 3 to 20 characters")
+    }
+
+    const role = checkRole(verificationName);
+    const email =
+        role === "student"
+            ? "s" + verificationName + "@rmit.edu.vn"
+            : verificationName + "@gmail.com";
+
+    const findUsername = await User.findOne({ username });
+    if (findUsername) {
+        throw new CustomError.BadRequestError("This username already exists");
+    }
+
+    const findEmail = await User.findOne({ email });
+    if (findEmail) {
+        throw new CustomError.BadRequestError("This email already exists");
     }
 
     const verificationToken = makeVerificationToken(
         username,
+        email,
+        role,
         process.env.VERIFICATION_SECRET
     );
 
     const origin = "http://localhost:3000"; // later this is the origin link of React client side
     await sendVerificationEmail(
         req.useragent.browser,
-        username,
+        email,
         verificationToken,
         origin
     );
@@ -63,12 +78,14 @@ const verifyEmail = async (req, res) => {
 
     if (
         !decoded.hasOwnProperty("username") ||
+        !decoded.hasOwnProperty("email") ||
+        !decoded.hasOwnProperty("role") ||
         !decoded.hasOwnProperty("expirationDate")
     ) {
         throw new CustomError.UnauthenticatedError("Verification Failed");
     }
 
-    const { username, expirationDate } = decoded;
+    const { username, email, role, expirationDate } = decoded;
     const now = new Date();
 
     if (new Date(expirationDate).getTime() <= now.getTime()) {
@@ -76,17 +93,6 @@ const verifyEmail = async (req, res) => {
             "Verification token is expired after 2 minutes"
         );
     }
-
-    const findUser = await User.findOne({ username });
-    if (findUser) {
-        throw new CustomError.BadRequestError("This account already exists");
-    }
-
-    const role = checkRole(username);
-    const email =
-        role === "student"
-            ? "s" + username + "@rmit.edu.vn"
-            : role + "@gmail.com";
 
     const ip = getIP(req);
     const user = await User.create({
@@ -130,7 +136,7 @@ const login = async (req, res) => {
     await sendOTPtoEmail(findUser.email, otp, null);
     res.status(StatusCodes.OK).json({
         hash: fullHash,
-        msg: `Success! Check your email for OTP to login`,
+        msg: `Check your email for OTP to login`,
     });
 };
 
@@ -211,5 +217,5 @@ module.exports = {
     verifyEmail,
     login,
     verifyOTP,
-    logout
+    logout,
 };

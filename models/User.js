@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
+const validator = require("validator");
 
 const UserSchema = new mongoose.Schema({
     username: {
         type: String,
         required: [true, "Please provide username"],
+        minlength: [3, "Length must be greater than 3"],
+        maxlength: [20, "Length must be less than 20"],
         unique: true,
     },
 
@@ -11,6 +14,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please provide email"],
         unique: true,
+        validate: {
+            validator: validator.isEmail,
+            message: "Please provide valid email",
+        },
     },
 
     role: {
@@ -23,6 +30,7 @@ const UserSchema = new mongoose.Schema({
 
     ipAddresses: {
         type: [String],
+        required: true,
         validate: [(val) => val.length >= 1, "Must have at least 1 IP"],
     },
 });
