@@ -211,4 +211,5 @@ module.exports = {
     verifyEmail,
     login,
     verifyOTP,
+    logout
 };

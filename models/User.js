@@ -15,13 +15,16 @@ const UserSchema = new mongoose.Schema({
 
     role: {
         type: String,
-        enum: ["vendor", "student"],
+        enum: {
+            values: ["vendor", "student"],
+            message: "{VALUE} is not supported",
+        },
     },
 
     ipAddresses: {
         type: [String],
-        validate: [(val) => val.length >= 1, 'Must have at least 1 IP']
-    }
+        validate: [(val) => val.length >= 1, "Must have at least 1 IP"],
+    },
 });
 
 module.exports = mongoose.model("User", UserSchema);
