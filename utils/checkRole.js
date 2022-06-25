@@ -1,4 +1,5 @@
 const CustomError = require("../errors");
+const fs = require("fs");
 
 const checkRole = (verificationName) => {
     if (verificationName == "") {
@@ -8,8 +9,8 @@ const checkRole = (verificationName) => {
     if (verificationName.match('3[0-9]{6}')) {
         return "student";
     }
-
-    const restaurants = JSON.parse(process.env.LIST_RESTAURANT);
+    
+    const restaurants = fs.readFileSync(__dirname + '\\vendors.txt').toString().replace(/\r\n/g,'\n').split("\n");
     for (let restaurant of restaurants) {
         if (restaurant === verificationName) {
             return "vendor";

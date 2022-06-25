@@ -1,11 +1,12 @@
 const { createJWT, isTokenValid } = require("./jwt");
-const makeVerificationToken = require("./makeVerificationToken")
+const makeVerificationToken = require("./makeVerificationToken");
 const checkRole = require("./checkRole");
 const generateOTP = require("./generateOTP");
 const sendOTPtoEmail = require("./sendOTPtoEmail");
 const sendVerificationEmail = require("./sendVerificationEmail");
-const getIP = require('./getIP')
-const attachCookiesToResponse = require('./attachCookiesToResponse')
+const getIP = require("./getIP");
+const attachCookiesToResponse = require("./attachCookiesToResponse");
+const checkPermission = require("./checkPermission");
 
 module.exports = {
     createJWT,
@@ -16,5 +17,6 @@ module.exports = {
     sendOTPtoEmail,
     sendVerificationEmail,
     getIP,
-    attachCookiesToResponse
+    attachCookiesToResponse,
+    checkPermission,
 };
