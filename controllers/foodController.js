@@ -2,9 +2,8 @@ const Food = require("../models/Food");
 const { StatusCodes } = require("http-status-codes");
 
 const getAllFood = async (req, res) => {
-    // const food = await Food.find();
-    // res.status(200).json({ food });
-    res.status(200).json({ msg: "create food" });
+    const food = await Food.find();
+    res.status(200).json({ food });
 };
 
 const createFood = async (req, res) => {

@@ -20,7 +20,7 @@ const attachCookiesToResponse = ({ res, user, refreshToken }) => {
         expires: new Date(Date.now() + oneDay),
     });
 
-    res.cookie("refreshToken", refreshToken, {
+    res.cookie("refreshToken", refreshTokenJWT, {
         httpOnly: true,
         // secure: true, // later in production
         samesite: "strict",

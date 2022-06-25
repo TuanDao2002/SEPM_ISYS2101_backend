@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const foodSchema = new momgoose.Schema({
+const FoodSchema = new mongoose.Schema({
     foodName: {
         type: String,
         required: [true, "Please provide the food name"]
@@ -35,4 +35,4 @@ const foodSchema = new momgoose.Schema({
 })
 
 
-module.exports = mongoose.model('User', FoodSchema)
+module.exports = mongoose.model('Food', FoodSchema)

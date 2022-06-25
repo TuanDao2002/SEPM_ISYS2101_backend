@@ -13,7 +13,7 @@ const {
 router
     .route("/")
     .get(getAllReviews)
-    .post(reateReview);
+    .post(createReview);
 
 router
     .route("/:id")

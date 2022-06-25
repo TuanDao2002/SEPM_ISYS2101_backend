@@ -17,6 +17,7 @@ const connectDB = require("./db/connect");
 
 // routers
 const authRouter = require("./routes/authRoutes");
+const foodRouter = require("./routes/foodRoutes");
 
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
@@ -43,6 +44,7 @@ app.use(cookieParser());
 
 // routes
 app.use("/api/auth", authRouter);
+app.use("/api/food", foodRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
