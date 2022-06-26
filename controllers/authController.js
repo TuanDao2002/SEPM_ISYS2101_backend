@@ -9,7 +9,6 @@ const {
     sendVerificationEmail,
     getIP,
     attachCookiesToResponse,
-    getEmail,
 } = require("../utils");
 
 const User = require("../models/User");
@@ -19,7 +18,7 @@ const useragent = require("express-useragent");
 const crypto = require("crypto");
 
 const register = async (req, res) => {
-    const { username, verificationName } = req.body;
+    const { username, email } = req.body;
 
     if (username.length < 3 || username.length > 20) {
         throw new CustomError.BadRequestError(
@@ -27,19 +26,7 @@ const register = async (req, res) => {
         );
     }
 
-    const role = checkRole(verificationName);
-
-    if (role === "vendor" && username != verificationName) {
-        throw new CustomError.BadRequestError(
-            "The username of vendor must match with the vendor's name"
-        );
-    }
-
-    const email = getEmail(verificationName, role);
-    // const email =
-    //     role === "student"
-    //         ? "s" + verificationName + "@rmit.edu.vn"
-    //         : verificationName + "@gmail.com";
+    const role = checkRole(username, email);
 
     const findUsername = await User.findOne({ username });
     if (findUsername) {

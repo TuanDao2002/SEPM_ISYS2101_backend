@@ -11,14 +11,30 @@ const getAllFood = async (req, res) => {
     res.status(StatusCodes.OK).json({ food });
 };
 
+const getFood = async (req, res) => {
+    const { id: foodId } = req.params;
+    const food = await Food.findOne({ _id: foodId });
+
+    if (!food) {
+        throw new CustomError.NotFoundError(
+            `Food with id ${foodId} does not exist`
+        );
+    }
+    res.status(StatusCodes.OK).json({ food });
+};
+
 const createFood = async (req, res) => {
     const {
         body: { foodName },
         user: { userId },
     } = req;
 
-    const duplicateFood = await Food.find({ foodName, vendor: userId });
-    if (duplicateFood.length > 0) {
+    const duplicateFood = await Food.findOne({
+        foodName: { $regex: foodName, $options: "i" }, // find duplicate food with case insensitive
+        vendor: userId,
+    });
+    
+    if (duplicateFood) {
         throw new CustomError.BadRequestError(
             "This food already exists in this vendor"
         );
@@ -31,44 +47,46 @@ const createFood = async (req, res) => {
 };
 
 const updateFood = async (req, res) => {
-    const { _id: foodId } = req.params;
+    const {
+        params: { id: foodId },
+        user: { userId },
+    } = req;
 
-    const food = await Food.findOneAndUpdate({ _id: foodId }, req.body, {
-        new: true, // always return the new updated object
-        runValidators: true, // always validate the attributes of the object
-        useFindAndModify: false, // not show warning message
-    });
-
-    if (!food) {
-        throw new CustomError.BadRequestError(
-            `Food with id ${_id} does not exist`
-        );
-    }
-    res.status(StatusCodes.OK).json({ food });
-};
-
-const getFood = async (req, res) => {
-    const { _id: foodId } = req.params;
-    const food = await Food.findOne({ _id: foodId });
+    const food = await Food.findOneAndUpdate(
+        { _id: foodId, vendor: userId },
+        req.body,
+        {
+            new: true, // always return the new updated object
+            runValidators: true, // always validate the attributes of the object
+            useFindAndModify: false, // not show warning message
+        }
+    );
 
     if (!food) {
         throw new CustomError.BadRequestError(
-            `Food with id ${_id} does not exist`
+            `Food with id ${foodId} does not exist or this vendor does not own this food`
         );
     }
     res.status(StatusCodes.OK).json({ food });
 };
 
 const deleteFood = async (req, res) => {
-    const { _id: foodId } = req.params;
-    const food = await Food.findByIdAndDelete({ _id: foodId });
+    const {
+        params: { id: foodId },
+        user: { userId },
+    } = req;
+
+    const food = await Food.findOne({ _id: foodId, vendor: userId });
 
     if (!food) {
         throw new CustomError.BadRequestError(
-            `Food with id ${_id} does not exist`
+            `Food with id ${foodId} does not exist or this vendor does not own this food`
         );
     }
-    res.status(200).send();
+
+    await food.remove();
+
+    res.status(200).json({ msg: "Success! Food deleted" });
 };
 
 module.exports = {
