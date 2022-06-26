@@ -28,7 +28,10 @@ const register = async (req, res) => {
 
     const role = checkRole(username, email);
 
-    const findUsername = await User.findOne({ username });
+    const findUsername = await User.findOne({
+        username: { $regex: username, $options: "i" }, // find duplicate username with case insensitive
+    });
+
     if (findUsername) {
         throw new CustomError.BadRequestError("This username already exists");
     }

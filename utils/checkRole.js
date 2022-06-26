@@ -6,7 +6,7 @@ const checkRole = (username, email) => {
         throw new CustomError.UnauthenticatedError("Empty email");
     }
 
-    if (email.match(/s3[0-9]{6}@rmit\.edu\.vn$/)) {
+    if (email.match(/^s3[0-9]{6}@rmit\.edu\.vn$/)) {
         for (let vendor of vendorsList) {
             if (vendor.vendorName === username) {
                 throw new CustomError.UnauthenticatedError(
