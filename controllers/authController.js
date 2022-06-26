@@ -9,6 +9,7 @@ const {
     sendVerificationEmail,
     getIP,
     attachCookiesToResponse,
+    getEmail,
 } = require("../utils");
 
 const User = require("../models/User");
@@ -21,14 +22,24 @@ const register = async (req, res) => {
     const { username, verificationName } = req.body;
 
     if (username.length < 3 || username.length > 20) {
-        throw new CustomError.BadRequestError("The username must have from 3 to 20 characters")
+        throw new CustomError.BadRequestError(
+            "The username must have from 3 to 20 characters"
+        );
     }
 
     const role = checkRole(verificationName);
-    const email =
-        role === "student"
-            ? "s" + verificationName + "@rmit.edu.vn"
-            : verificationName + "@gmail.com";
+
+    if (role === "vendor" && username != verificationName) {
+        throw new CustomError.BadRequestError(
+            "The username of vendor must match with the vendor's name"
+        );
+    }
+
+    const email = getEmail(verificationName, role);
+    // const email =
+    //     role === "student"
+    //         ? "s" + verificationName + "@rmit.edu.vn"
+    //         : verificationName + "@gmail.com";
 
     const findUsername = await User.findOne({ username });
     if (findUsername) {

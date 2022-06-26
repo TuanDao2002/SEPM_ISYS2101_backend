@@ -1,4 +1,0 @@
-global
-sorento
-lygon
-nine

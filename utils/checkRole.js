@@ -1,5 +1,5 @@
 const CustomError = require("../errors");
-const fs = require("fs");
+const vendorsList = require('./vendors.json')
 
 const checkRole = (verificationName) => {
     if (verificationName == "") {
@@ -10,9 +10,8 @@ const checkRole = (verificationName) => {
         return "student";
     }
     
-    const restaurants = fs.readFileSync(__dirname + '\\vendors.txt').toString().replace(/\r\n/g,'\n').split("\n");
-    for (let restaurant of restaurants) {
-        if (restaurant === verificationName) {
+    for (let vendor of vendorsList) {
+        if (vendor.vendorName === verificationName) {
             return "vendor";
         }
     }

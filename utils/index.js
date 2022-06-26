@@ -7,6 +7,7 @@ const sendVerificationEmail = require("./sendVerificationEmail");
 const getIP = require("./getIP");
 const attachCookiesToResponse = require("./attachCookiesToResponse");
 const checkPermission = require("./checkPermission");
+const getEmail = require("./getEmail");
 
 module.exports = {
     createJWT,
@@ -19,4 +20,5 @@ module.exports = {
     getIP,
     attachCookiesToResponse,
     checkPermission,
+    getEmail
 };

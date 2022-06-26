@@ -6,23 +6,25 @@ const Food = require("../models/Food");
 const getAllFood = async (req, res) => {
     const food = await Food.find().populate({
         path: "vendor",
-        select: "username",
+        select: "-_id username", // select username and not include _id
     });
     res.status(StatusCodes.OK).json({ food });
 };
 
 const createFood = async (req, res) => {
     const {
-        foodName,
+        body: { foodName },
         user: { userId },
-    } = req.body;
+    } = req;
 
     const duplicateFood = await Food.find({ foodName, vendor: userId });
-    if (duplicateFood) {
+    if (duplicateFood.length > 0) {
         throw new CustomError.BadRequestError(
             "This food already exists in this vendor"
         );
     }
+
+    req.body.vendor = userId;
 
     const food = await Food.create(req.body);
     res.status(StatusCodes.OK).json({ food });
