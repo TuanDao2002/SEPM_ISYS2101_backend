@@ -4,11 +4,38 @@ const CustomError = require("../errors");
 const Food = require("../models/Food");
 
 const getAllFood = async (req, res) => {
-    const food = await Food.find().populate({
-        path: "vendor",
-        select: "-_id username", // select username and not include _id
-    });
-    res.status(StatusCodes.OK).json({ food });
+    const { category, vendor, taste, minPrice, maxPrice } = req.query;
+    const queryObject = {};
+
+    if (category) {
+        queryObject.category = category;
+    }
+
+    if (vendor) {
+        queryObject.vendor = vendor;
+    }
+
+    if (taste) {
+        queryObject.vendor = taste;
+    }
+
+    if (minPrice) {
+        queryObject.price = { $gte: Number(minPrice) };
+    }
+
+    if (maxPrice) {
+        queryObject.price = {...queryObject.price, $lte: Number(maxPrice) }; // use spread operator to NOT override the previous field
+    }
+
+    // cannot use await here because it must be synchronous
+    let foodResult = await Food.find(queryObject)
+        .populate({
+            path: "vendor",
+            select: "-_id username", // select username and not include _id
+        })
+        .sort("price -createdAt");
+
+    res.status(StatusCodes.OK).json({ foodResult });
 };
 
 const getFood = async (req, res) => {
@@ -33,7 +60,7 @@ const createFood = async (req, res) => {
         foodName: { $regex: foodName, $options: "i" }, // find duplicate food with case insensitive
         vendor: userId,
     });
-    
+
     if (duplicateFood) {
         throw new CustomError.BadRequestError(
             "This food already exists in this vendor"
