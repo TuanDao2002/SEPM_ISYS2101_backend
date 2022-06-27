@@ -33,7 +33,7 @@ app.use(
 app.use(helmet());
 app.use(
     cors({
-        origin: "http://127.0.0.1:5500", // only allow website in this domain too access the resource of this server
+        origin: "https://rmit-what-to-eat.netlify.app/otp", // only allow website in this domain too access the resource of this server
     })
 );
 app.use(xss());
