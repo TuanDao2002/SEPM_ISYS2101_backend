@@ -75,7 +75,7 @@ const createFood = async (req, res) => {
   } = req;
 
   const duplicateFood = await Food.findOne({
-    foodName: { $regex: foodName, $options: "i" }, // find duplicate food with case insensitive
+    foodName: { $regex: `^${foodName}$`, $options: "i" }, // find duplicate food with case insensitive
     vendor: userId,
   });
 
