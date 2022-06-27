@@ -93,6 +93,7 @@ const verifyEmail = async (req, res) => {
   }
 
   const findUser = User.findOne({ email });
+  console.log(findUser)
   if (findUser) {
     throw new CustomError.UnauthenticatedError(
       "Email is already verified"
