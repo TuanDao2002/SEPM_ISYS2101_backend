@@ -31,11 +31,12 @@ app.use(
     })
 );
 app.use(helmet());
-app.use(
-    cors({
-        origin: "https://rmit-what-to-eat.netlify.app/otp", // only allow website in this domain too access the resource of this server
-    })
-);
+// app.use(
+//     cors({
+//         origin: "https://rmit-what-to-eat.netlify.app/otp", // only allow website in this domain too access the resource of this server
+//     })
+// );
+app.use(cors())
 app.use(xss());
 app.use(useragent.express());
 
