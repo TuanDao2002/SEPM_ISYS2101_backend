@@ -29,6 +29,7 @@ const getAllFood = async (req, res) => {
 
     // cannot use await here because it must be synchronous
     let foodResult = await Food.find(queryObject)
+        .select("foodName price vendor image")
         .populate({
             path: "vendor",
             select: "-_id username", // select username and not include _id

@@ -92,6 +92,13 @@ const verifyEmail = async (req, res) => {
     );
   }
 
+  const findUser = User.find({ email });
+  if (findUser) {
+    throw new CustomError.UnauthenticatedError(
+      "Email is already verified"
+    );
+  }
+
   const ip = getIP(req);
   const user = await User.create({
     username,
