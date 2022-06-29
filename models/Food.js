@@ -5,6 +5,9 @@ const FoodSchema = new mongoose.Schema(
         foodName: {
             type: String,
             required: [true, "Please provide the food name"],
+            minlength: [3, "Length must be greater than 3"],
+            maxlength: [20, "Length must be less than 20"],
+            unique: true
         },
 
         vendor: {
@@ -16,6 +19,9 @@ const FoodSchema = new mongoose.Schema(
         location: {
             type: String,
             required: [true, "Please provide the location"],
+            minlength: [3, "Length must be greater than 3"],
+            maxlength: [20, "Length must be less than 20"],
+            unique: true
         },
 
         price: {

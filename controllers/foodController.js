@@ -5,7 +5,7 @@ const Food = require("../models/Food");
 const User = require("../models/User");
 
 const getAllFood = async (req, res) => {
-    let { category, vendor, taste, minPrice, maxPrice } = req.query;
+    let { category, vendor, taste, minPrice, maxPrice, type } = req.query;
     const queryObject = {};
 
     if (category) {
@@ -13,12 +13,12 @@ const getAllFood = async (req, res) => {
     }
 
     if (vendor) {
-        const vendorId = await User.findOne({ username: vendor });
-        if (!vendorId) {
+        const findVendor = await User.findOne({ username: vendor });
+        if (!findVendor) {
             throw new CustomError.BadRequestError("This vendor does not exist");
         }
 
-        queryObject.vendor = vendorId;
+        queryObject.vendor = findVendor._id;
     }
 
     if (taste) {
@@ -33,6 +33,15 @@ const getAllFood = async (req, res) => {
 
     if (maxPrice) {
         queryObject.price = { ...queryObject.price, $lte: Number(maxPrice) }; // use spread operator to NOT override the previous field
+    }
+
+    if (type) {
+        queryObject.type = type;
+    } else { // if meal type is not specified
+        const now = new Date();
+        const hours = now.getHours(); // get the hour of the day based on local time
+        const type = hours < 11 ? 'Breakfast' : hours < 16 ? 'Lunch' : 'Dinner'; // return the meal type based on the hour of the day
+        queryObject.type = type;
     }
 
     const loadingCount =
