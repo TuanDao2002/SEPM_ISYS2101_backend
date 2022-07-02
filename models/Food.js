@@ -53,6 +53,13 @@ const FoodSchema = new mongoose.Schema(
             },
         },
 
+        prepareTime: {
+            type: Number,
+            min: [1, "Time to prepare must be longer than 0 minute"],
+            max: [59, "Time to prepare must be shorter than 60 minutes"],
+            required: true
+        },
+
         image: {
             type: String,
             default: "image",

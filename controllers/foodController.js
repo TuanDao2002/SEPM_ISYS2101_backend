@@ -53,7 +53,7 @@ const getAllFood = async (req, res) => {
     let numOfResultsPerLoading = 0;
     try {
         await Food.find(queryObject)
-            .select("foodName price vendor image taste")
+            .select("foodName price vendor image taste location")
             .populate({
                 path: "vendor",
                 select: "-_id username", // select username and not include _id
