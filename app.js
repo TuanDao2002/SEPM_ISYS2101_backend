@@ -18,6 +18,7 @@ const connectDB = require("./db/connect");
 // routers
 const authRouter = require("./routes/authRoutes");
 const foodRouter = require("./routes/foodRoutes");
+const reivewRouter = require("./routes/reviewRoutes");
 
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
@@ -47,16 +48,17 @@ const fileUpload = require("express-fileupload");
 app.use(fileUpload({ useTempFiles: true }));
 
 // config cloudinary V2
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require("cloudinary").v2;
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
-})
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 // routes
 app.use("/api/auth", authRouter);
 app.use("/api/food", foodRouter);
+app.use("/api/review", reivewRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
@@ -64,14 +66,14 @@ app.use(errorHandlerMiddleware);
 const port = process.env.PORT || 3000;
 
 const start = async () => {
-	try {
-		await connectDB(process.env.MONGO_URI);
-		app.listen(port, () =>
-			console.log(`Server is listening on port ${port}...`)
-		);
-	} catch (error) {
-		console.log(error);
-	}
+    try {
+        await connectDB(process.env.MONGO_URI);
+        app.listen(port, () =>
+            console.log(`Server is listening on port ${port}...`)
+        );
+    } catch (error) {
+        console.log(error);
+    }
 };
 
 start();
