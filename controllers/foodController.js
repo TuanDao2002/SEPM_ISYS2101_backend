@@ -5,7 +5,6 @@ const Food = require("../models/Food");
 const User = require("../models/User");
 
 const getAllFood = async (req, res) => {
-    const start = new Date()
     let { category, vendor, taste, minPrice, maxPrice, type, next_cursor } =
         req.query;
     const queryObject = {};
@@ -48,19 +47,18 @@ const getAllFood = async (req, res) => {
     }
 
     if (next_cursor) {
-        const [price, createdAt] = Buffer.from(next_cursor, "base64")
+        const [price, createdAt, _id] = Buffer.from(next_cursor, "base64")
             .toString("ascii")
             .split("_");
 
         queryObject.$or = [
             { price: { $gt: price } },
             { price: price, createdAt: { $lt: createdAt } },
+            { createdAt: createdAt, _id: { $lt: _id } }
         ];
     }
 
-    // const loadingCount = Number(req.query.loadingCount) > 0 ? Number(req.query.loadingCount) : 1;
-    const resultsLimitPerLoading = 2;
-    // const skip = (loadingCount - 1) * resultsLimitPerLoading;
+    const resultsLimitPerLoading = 4;
 
     try {
         await Food.find(queryObject)
@@ -70,7 +68,6 @@ const getAllFood = async (req, res) => {
                 select: "-_id username", // select username and not include _id
             })
             .sort("price -createdAt")
-            // .skip(skip)
             .limit(resultsLimitPerLoading)
             .exec(function (err, foods) {
                 if (err) throw err;
@@ -80,16 +77,14 @@ const getAllFood = async (req, res) => {
 
                     let next_cursor = null;
                     if (foods.length !== count) {
-                        next_cursor = Buffer.from(foods[foods.length - 1].price + "_" + foods[foods.length - 1].createdAt).toString("base64");
+                        const lastFood = foods[foods.length - 1];
+                        next_cursor = Buffer.from(lastFood.price + "_" + lastFood.createdAt + "_" + lastFood._id).toString("base64");
                     }
-
-                    const end = new Date();
 
                     res.status(StatusCodes.OK).json({
                         foods,
                         remainingResults,
                         next_cursor,
-                        timetaken: end - start
                     });
                 });
             });

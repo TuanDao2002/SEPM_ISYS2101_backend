@@ -42,34 +42,46 @@ const createReview = async (req, res) => {
 };
 
 const getSingleFoodReviews = async (req, res) => {
-    const { id: foodId } = req.params;
+    const { params: { id: foodId }, query: { next_cursor } } = req;
+    const queryObject = { food: foodId };
 
-    const loadingCount =
-        Number(req.query.loadingCount) > 0 ? Number(req.query.loadingCount) : 1;
-    const resultsLimitPerLoading = 5;
-    const skip = (loadingCount - 1) * resultsLimitPerLoading;
+    const resultsLimitPerLoading = 4;
+    if (next_cursor) {
+        const [rating, createdAt, _id] = Buffer.from(next_cursor, "base64")
+            .toString("ascii")
+            .split("_");
+
+        queryObject.$or = [
+            { rating: { $lt: rating } },
+            { rating: rating, createdAt: { $lt: createdAt } },
+            { createdAt: createdAt, _id: { $lt: _id}}
+        ];
+    }
 
     try {
-        await Review.find({ food: foodId })
+        await Review.find(queryObject)
             .populate({
                 path: "user",
                 select: "-_id username", // select username and not include _id
             })
-            .sort("rating -createdAt")
-            .skip(skip)
+            .sort("-rating -createdAt")
             .limit(resultsLimitPerLoading)
             .exec(function (err, reviews) {
-                Review.countDocuments({ food: foodId }).exec(function (
-                    err,
-                    count
-                ) {
+                if (err) throw err
+                Review.countDocuments(queryObject).exec(function (err, count) {
                     if (err) throw err;
-                    numOfResultsPerLoading = reviews.length;
-                    resultsCount = count;
+                    let remainingResults = count - reviews.length;
+
+                    let next_cursor = null;
+                    if (remainingResults != 0) {
+                        const lastReview = reviews[reviews.length - 1];
+                        next_cursor = Buffer.from(lastReview.rating + "_" + lastReview.createdAt + "_" + lastReview._id).toString('base64')
+                    } 
+
                     res.status(StatusCodes.OK).json({
                         reviews,
-                        numOfResultsPerLoading,
-                        resultsCount,
+                        remainingResults,
+                        next_cursor
                     });
                 });
             });
