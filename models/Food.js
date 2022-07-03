@@ -68,6 +68,6 @@ const FoodSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-FoodSchema.index({ vendor: 1 }, { unique: true });
+FoodSchema.index({ vendor: 1, price: 1, createdAt: -1 }, { unique: true });
 
 module.exports = mongoose.model("Food", FoodSchema);

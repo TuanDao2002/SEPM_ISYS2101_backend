@@ -5,6 +5,7 @@ const Food = require("../models/Food");
 const User = require("../models/User");
 
 const getAllFood = async (req, res) => {
+    const start = new Date()
     let { category, vendor, taste, minPrice, maxPrice, type, next_cursor } =
         req.query;
     const queryObject = {};
@@ -81,10 +82,14 @@ const getAllFood = async (req, res) => {
                     if (foods.length !== count) {
                         next_cursor = Buffer.from(foods[foods.length - 1].price + "_" + foods[foods.length - 1].createdAt).toString("base64");
                     }
+
+                    const end = new Date();
+
                     res.status(StatusCodes.OK).json({
                         foods,
                         remainingResults,
                         next_cursor,
+                        timetaken: end - start
                     });
                 });
             });
