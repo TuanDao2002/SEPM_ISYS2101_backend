@@ -5,7 +5,8 @@ const Food = require("../models/Food");
 const User = require("../models/User");
 
 const getAllFood = async (req, res) => {
-    let { category, vendor, taste, minPrice, maxPrice, type } = req.query;
+    let { category, vendor, taste, minPrice, maxPrice, type, next_cursor } =
+        req.query;
     const queryObject = {};
 
     if (category) {
@@ -37,39 +38,53 @@ const getAllFood = async (req, res) => {
 
     if (type) {
         queryObject.type = type;
-    } else { // if meal type is not specified
+    } else {
+        // if meal type is not specified
         const now = new Date();
         const hours = now.getHours(); // get the hour of the day based on local time
-        const type = hours < 11 ? 'Breakfast' : hours < 16 ? 'Lunch' : 'Dinner'; // return the meal type based on the hour of the day
+        const type = hours < 11 ? "Breakfast" : hours < 16 ? "Lunch" : "Dinner"; // return the meal type based on the hour of the day
         queryObject.type = type;
     }
 
-    const loadingCount =
-        Number(req.query.loadingCount) > 0 ? Number(req.query.loadingCount) : 1;
-    const resultsLimitPerLoading = 5;
-    const skip = (loadingCount - 1) * resultsLimitPerLoading;
+    if (next_cursor) {
+        const [price, createdAt] = Buffer.from(next_cursor, "base64")
+            .toString("ascii")
+            .split("_");
 
-    let resultsCount = 0;
-    let numOfResultsPerLoading = 0;
+        queryObject.$or = [
+            { price: { $gt: price } },
+            { price: price, createdAt: { $lt: createdAt } },
+        ];
+    }
+
+    // const loadingCount = Number(req.query.loadingCount) > 0 ? Number(req.query.loadingCount) : 1;
+    const resultsLimitPerLoading = 2;
+    // const skip = (loadingCount - 1) * resultsLimitPerLoading;
+
     try {
         await Food.find(queryObject)
-            .select("foodName price vendor image taste location")
+            .select("foodName price vendor image taste location createdAt")
             .populate({
                 path: "vendor",
                 select: "-_id username", // select username and not include _id
             })
             .sort("price -createdAt")
-            .skip(skip)
+            // .skip(skip)
             .limit(resultsLimitPerLoading)
             .exec(function (err, foods) {
+                if (err) throw err;
                 Food.countDocuments(queryObject).exec(function (err, count) {
                     if (err) throw err;
-                    numOfResultsPerLoading = foods.length;
-                    resultsCount = count;
+                    let remainingResults = count - foods.length;
+
+                    let next_cursor = null;
+                    if (foods.length !== count) {
+                        next_cursor = Buffer.from(foods[foods.length - 1].price + "_" + foods[foods.length - 1].createdAt).toString("base64");
+                    }
                     res.status(StatusCodes.OK).json({
                         foods,
-                        numOfResultsPerLoading,
-                        resultsCount,
+                        remainingResults,
+                        next_cursor,
                     });
                 });
             });
