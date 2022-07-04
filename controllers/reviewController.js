@@ -42,7 +42,7 @@ const createReview = async (req, res) => {
 };
 
 const getSingleFoodReviews = async (req, res) => {
-    const { params: { id: foodId }, query: { next_cursor } } = req;
+    let { params: { id: foodId }, query: { next_cursor } } = req;
     const queryObject = { food: foodId };
 
     const resultsLimitPerLoading = 4;
@@ -58,36 +58,31 @@ const getSingleFoodReviews = async (req, res) => {
         ];
     }
 
-    try {
-        await Review.find(queryObject)
-            .populate({
-                path: "user",
-                select: "-_id username", // select username and not include _id
-            })
-            .sort("-rating -createdAt")
-            .limit(resultsLimitPerLoading)
-            .exec(function (err, reviews) {
-                if (err) throw err
-                Review.countDocuments(queryObject).exec(function (err, count) {
-                    if (err) throw err;
-                    let remainingResults = count - reviews.length;
+    let reviews = Review.find(queryObject)
+		.populate({
+			path: "user",
+			select: "-_id username", // select username and not include _id
+		});
 
-                    let next_cursor = null;
-                    if (remainingResults != 0) {
-                        const lastReview = reviews[reviews.length - 1];
-                        next_cursor = Buffer.from(lastReview.rating + "_" + lastReview.createdAt + "_" + lastReview._id).toString('base64')
-                    } 
+	reviews = reviews.sort("-rating -createdAt");
+	reviews = reviews.limit(resultsLimitPerLoading);
+	const results = await reviews;
 
-                    res.status(StatusCodes.OK).json({
-                        reviews,
-                        remainingResults,
-                        next_cursor
-                    });
-                });
-            });
-    } catch (err) {
-        throw err;
-    }
+	const count = await Review.countDocuments(queryObject);
+	const remainingResults = count - results.length;
+	next_cursor = null;
+	if (results.length !== count) {
+		const lastReview = results[results.length - 1];
+		next_cursor = Buffer.from(
+			lastReview.rating + "_" + lastReview.createdAt + "_" + lastReview._id
+		).toString("base64");
+	}
+
+	res.status(StatusCodes.OK).json({
+		results,
+		remainingResults,
+		next_cursor,
+	});
 };
 
 const updateReview = async (req, res) => {

@@ -60,6 +60,16 @@ const FoodSchema = new mongoose.Schema(
 			required: true,
 		},
 
+		averageRating: {
+			type: Number,
+			default: 0,
+		},
+
+		numOfReviews: {
+			type: Number,
+			default: 0,
+		},
+
 		image: {
 			type: String,
 			default: "image",
@@ -69,5 +79,16 @@ const FoodSchema = new mongoose.Schema(
 );
 
 FoodSchema.index({ vendor: 1 }, { price: 1, createdAt: -1 });
+
+FoodSchema.virtual("reviews", {
+	ref: "Review",
+	localField: "_id",
+	foreignField: "food",
+	justOne: false,
+});
+
+FoodSchema.pre("remove", async function () {
+	await this.model("Review").deleteMany({ food: this._id });
+});
 
 module.exports = mongoose.model("Food", FoodSchema);

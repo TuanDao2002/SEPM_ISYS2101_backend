@@ -58,43 +58,7 @@ const getAllFood = async (req, res) => {
 		];
 	}
 
-	const resultsLimitPerLoading = 4
-    ;
-
-	/*
-    try {
-        await Food.find(queryObject)
-            .select("foodName price vendor image taste location createdAt")
-            .populate({
-                path: "vendor",
-                select: "-_id username", // select username and not include _id
-            })
-            .sort("price -createdAt")
-            .limit(resultsLimitPerLoading)
-            .exec(function (err, foods) {
-                if (err) throw err;
-                Food.countDocuments(queryObject).exec(function (err, count) {
-                    if (err) throw err;
-                    let remainingResults = count - foods.length;
-
-                    let next_cursor = null;
-                    if (foods.length !== count) {
-                        const lastFood = foods[foods.length - 1];
-                        next_cursor = Buffer.from(lastFood.price + "_" + lastFood.createdAt + "_" + lastFood._id).toString("base64");
-                    }
-
-                    res.status(StatusCodes.OK).json({
-                        foods,
-                        remainingResults,
-                        next_cursor,
-                    });
-                });
-            });
-    } catch (err) {
-        throw err;
-    }
-    */
-
+	const resultsLimitPerLoading = 4;
 	let foods = Food.find(queryObject)
 		.select("foodName price vendor image taste location createdAt")
 		.populate({
