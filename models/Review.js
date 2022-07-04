@@ -51,6 +51,13 @@ ReviewSchema.statics.calculateAverageRating = async function (foodId) {
 		},
 	]);
 
+	const averageRatingAllFood = await this.model("Food").aggregate({
+		$group: {
+			_id: null,
+			averageRating: { $avg: "$averageRating" }
+		}
+	})
+
 	try {
 		await this.model("Food").findOneAndUpdate(
 			{ _id: foodId },

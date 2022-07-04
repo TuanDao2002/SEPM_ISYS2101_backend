@@ -65,6 +65,11 @@ const FoodSchema = new mongoose.Schema(
 			default: 0,
 		},
 
+		weightRating: {
+			type: Number,
+			default: 0,
+		},
+
 		numOfReviews: {
 			type: Number,
 			default: 0,
