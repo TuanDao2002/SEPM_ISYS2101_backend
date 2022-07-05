@@ -47,12 +47,13 @@ const getAllFood = async (req, res) => {
 	}
 
 	if (next_cursor) {
-		const [price, createdAt, _id] = Buffer.from(next_cursor, "base64")
+		const [weightRating, price, createdAt, _id] = Buffer.from(next_cursor, "base64")
 			.toString("ascii")
 			.split("_");
 
 		queryObject.$or = [
-			{ price: { $gt: price } },
+			{ weightRating: { $lt: weightRating } },
+			{ weightRating: weightRating, price: { $gt: price } },
 			{ price: price, createdAt: { $lt: createdAt } },
 			{ createdAt: createdAt, _id: { $lt: _id } },
 		];
@@ -60,13 +61,13 @@ const getAllFood = async (req, res) => {
 
 	const resultsLimitPerLoading = 4;
 	let foods = Food.find(queryObject)
-		.select("foodName price vendor image taste location createdAt")
+		.select("foodName price vendor averageRating weightRating image taste location createdAt")
 		.populate({
 			path: "vendor",
 			select: "-_id username", // select username and not include _id
 		});
 
-	foods = foods.sort("price -createdAt");
+	foods = foods.sort("-weightRating price -createdAt");
 	foods = foods.limit(resultsLimitPerLoading);
 	const results = await foods;
 
@@ -76,7 +77,7 @@ const getAllFood = async (req, res) => {
 	if (results.length !== count) {
 		const lastResult = results[results.length - 1];
 		next_cursor = Buffer.from(
-			lastResult.price + "_" + lastResult.createdAt + "_" + lastResult._id
+			lastResult.weightRating + "_" + lastResult.price + "_" + lastResult.createdAt + "_" + lastResult._id
 		).toString("base64");
 	}
 
