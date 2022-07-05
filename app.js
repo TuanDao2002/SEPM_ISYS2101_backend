@@ -63,7 +63,7 @@ app.use("/api/review", reivewRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 
 const start = async () => {
     try {
