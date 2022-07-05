@@ -70,7 +70,7 @@ ReviewSchema.statics.calculateAverageRating = async function (foodId) {
 	]);
 
 	const averageRatingAllFood = resultsFromAllFood[0]?.averageRating || 0;
-	const acceptedNumOfReviews = 10;
+	const acceptedNumOfReviews = 100;
 
 	const allFoods = await this.model("Food").find();
 

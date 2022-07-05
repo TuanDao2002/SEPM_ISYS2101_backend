@@ -7,6 +7,7 @@ const FoodSchema = new mongoose.Schema(
             required: [true, "Please provide the food name"],
             minlength: [3, "Length must be greater than 3"],
             maxlength: [20, "Length must be less than 20"],
+            trim: true,
             unique: true,
         },
 
@@ -21,6 +22,7 @@ const FoodSchema = new mongoose.Schema(
             required: [true, "Please provide the location"],
             minlength: [3, "Length must be greater than 3"],
             maxlength: [20, "Length must be less than 20"],
+            trim: true,
             unique: true,
         },
 
@@ -77,6 +79,7 @@ const FoodSchema = new mongoose.Schema(
 
         image: {
             type: String,
+            trim: true,
             default: "image",
         },
     },

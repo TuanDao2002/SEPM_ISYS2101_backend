@@ -24,6 +24,7 @@ const createReview = async (req, res) => {
         throw new CustomError.NotFoundError(`No food with id : ${foodId}`);
     }
 
+    /*
     const alreadySubmitted = await Review.findOne({
         food: foodId,
         user: req.user.userId,
@@ -34,6 +35,7 @@ const createReview = async (req, res) => {
             "Already submitted review for this food"
         );
     }
+    */
 
     req.body.user = req.user.userId;
 
