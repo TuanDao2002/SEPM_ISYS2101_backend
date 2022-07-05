@@ -23,7 +23,6 @@ const FoodSchema = new mongoose.Schema(
             minlength: [3, "Length must be greater than 3"],
             maxlength: [20, "Length must be less than 20"],
             trim: true,
-            unique: true,
         },
 
         price: {

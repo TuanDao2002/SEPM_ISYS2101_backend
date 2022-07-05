@@ -125,7 +125,16 @@ const getFood = async (req, res) => {
 
 const createFood = async (req, res) => {
     const {
-        body: { foodName },
+        body: {
+            foodName,
+            location,
+            price,
+            category,
+            type,
+            taste,
+            prepareTime,
+            image,
+        },
         user: { userId },
     } = req;
 
@@ -140,21 +149,52 @@ const createFood = async (req, res) => {
         );
     }
 
-    req.body.vendor = userId;
+    const newFood = {
+        foodName,
+        location,
+        price,
+        category,
+        type,
+        taste,
+        prepareTime,
+        image,
+        vendor: userId,
+    };
 
-    const food = await Food.create(req.body);
+    const food = await Food.create(newFood);
     res.status(StatusCodes.OK).json({ food });
 };
 
 const updateFood = async (req, res) => {
     const {
         params: { id: foodId },
+        body: {
+            foodName,
+            location,
+            price,
+            category,
+            type,
+            taste,
+            prepareTime,
+            image,
+        },
         user: { userId },
     } = req;
 
+    const updateFood = {
+        foodName,
+        location,
+        price,
+        category,
+        type,
+        taste,
+        prepareTime,
+        image,
+    };
+
     const food = await Food.findOneAndUpdate(
         { _id: foodId, vendor: userId },
-        req.body,
+        { $set: updateFood },
         {
             new: true, // always return the new updated object
             runValidators: true, // always validate the attributes of the object
