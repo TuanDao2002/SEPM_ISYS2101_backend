@@ -75,6 +75,7 @@ ReviewSchema.statics.calculateAverageRating = async function (foodId) {
 	const allFoods = await this.model("Food").find();
 
 	for (food of allFoods) {
+		// IMDB rating formula
 		const weightRating =
 			(food.averageRating * food.numOfReviews +
 				averageRatingAllFood * acceptedNumOfReviews) /
