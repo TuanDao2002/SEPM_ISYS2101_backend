@@ -1,8 +1,12 @@
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
+const validator = require("validator");
 
 const Food = require("../models/Food");
 const User = require("../models/User");
+
+// regex check if there are characters beside these ones
+const regex = /[^a-zA-Z0-9-:,. ]/g 
 
 const getAllFood = async (req, res) => {
     let {
@@ -138,6 +142,12 @@ const createFood = async (req, res) => {
         user: { userId },
     } = req;
 
+    if (foodName.match(regex) || location.match(regex)) {
+        throw new CustomError.BadRequestError(
+            "This food name or location must not have strange characters"
+        );
+    }
+
     const duplicateFood = await Food.findOne({
         foodName: { $regex: `^${foodName}$`, $options: "i" }, // find duplicate food with case insensitive
         vendor: userId,
@@ -150,8 +160,8 @@ const createFood = async (req, res) => {
     }
 
     const newFood = {
-        foodName,
-        location,
+        foodName: validator.escape(foodName),
+        location: validator.escape(location),
         price,
         category,
         type,
@@ -181,9 +191,15 @@ const updateFood = async (req, res) => {
         user: { userId },
     } = req;
 
+    if (foodName.match(regex) || location.match(regex)) {
+        throw new CustomError.BadRequestError(
+            "This food name or location must not have strange characters"
+        );
+    }
+
     const updateFood = {
-        foodName,
-        location,
+        foodName: validator.escape(foodName),
+        location: validator.escape(location),
         price,
         category,
         type,
@@ -194,7 +210,7 @@ const updateFood = async (req, res) => {
 
     const food = await Food.findOneAndUpdate(
         { _id: foodId, vendor: userId },
-        { $set: updateFood },
+        updateFood,
         {
             new: true, // always return the new updated object
             runValidators: true, // always validate the attributes of the object

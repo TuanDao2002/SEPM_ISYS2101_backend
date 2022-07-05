@@ -6,7 +6,7 @@ const FoodSchema = new mongoose.Schema(
             type: String,
             required: [true, "Please provide the food name"],
             minlength: [3, "Length must be greater than 3"],
-            maxlength: [20, "Length must be less than 20"],
+            maxlength: [50, "Length must be less than 20"],
             trim: true,
             unique: true,
         },
@@ -32,6 +32,7 @@ const FoodSchema = new mongoose.Schema(
 
         category: {
             type: String,
+            required: [true, "Please provide category"],
             enum: {
                 values: ["Noodle", "Rice", "Soup", "Bread", "Desert"],
                 message: "{VALUE} is not a supported category", // Error message
@@ -40,6 +41,7 @@ const FoodSchema = new mongoose.Schema(
 
         type: {
             type: String,
+            required: [true, "Please provide the type"],
             enum: {
                 values: ["Breakfast", "Lunch", "Dinner"],
                 message: "{VALUE} is not a supported type of meal", // Error message
@@ -48,6 +50,7 @@ const FoodSchema = new mongoose.Schema(
 
         taste: {
             type: [String],
+            required: [true, "Please provide the taste"],
             enum: {
                 values: ["Sweet", "Sour", "Bitter", "Salty"],
                 message: "{VALUE} is not a supported type of taste", // Error message
@@ -58,7 +61,7 @@ const FoodSchema = new mongoose.Schema(
             type: Number,
             min: [1, "Time to prepare must be longer than 0 minute"],
             max: [59, "Time to prepare must be shorter than 60 minutes"],
-            required: true,
+            required: [true, "Please provide the prepare time"],
         },
 
         averageRating: {
@@ -78,6 +81,7 @@ const FoodSchema = new mongoose.Schema(
 
         image: {
             type: String,
+            required: [true, "Please provide the image"],
             trim: true,
             default: "image",
         },
