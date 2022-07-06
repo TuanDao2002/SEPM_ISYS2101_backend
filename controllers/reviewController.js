@@ -1,12 +1,11 @@
 const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
-const validator = require("validator");
 
 const Review = require("../models/Review");
 const Food = require("../models/Food");
 
-// regex check if there are characters beside these ones
-const regex = /[^a-zA-Z0-9-:,. ]/g;
+// regex check if there are any tag
+const regex = /<.*>/g;
 
 const createReview = async (req, res) => {
 	let { food: foodId, rating, title, comment } = req.body;
@@ -37,8 +36,8 @@ const createReview = async (req, res) => {
 	// escape tags to prevent XSS
 	const newReview = {
 		rating,
-		title: validator.escape(title),
-		comment: validator.escape(comment),
+		title,
+		comment,
 		user: req.user.userId,
 		food: foodId,
 	};
@@ -114,9 +113,8 @@ const updateReview = async (req, res) => {
 	}
 
 	review.rating = rating;
-	// escape tags to prevent XSS
-	review.title = validator.escape(title);
-	review.comment = validator.escape(comment);
+	review.title = title
+	review.comment = comment
 
 	await review.save();
 	res.status(200).json({ review });
