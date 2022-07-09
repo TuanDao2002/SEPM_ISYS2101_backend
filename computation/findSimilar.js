@@ -39,6 +39,7 @@ const calculateSimilarity = (attributesSet1, attributesSet2) => {
 }
 
 const findSimilar = (food, allProfiles) => {
+    const numOfSimilar = 3;
     const similarFoods = [];
         const foodAttributesSet = allProfiles[food._id]
         for (profileID of Object.keys(allProfiles)) {
@@ -53,7 +54,7 @@ const findSimilar = (food, allProfiles) => {
         }
 
         similarFoods.sort((a, b) => b.similarity - a.similarity); // descending sort by similarity
-        food.similarOnes = similarFoods.map(food => food.id).slice(0, 3);
+        food.similarOnes = similarFoods.map(food => food.id).slice(0, numOfSimilar);
 }
 
 const setSimilar = async () => {
