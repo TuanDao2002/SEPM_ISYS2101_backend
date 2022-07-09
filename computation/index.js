@@ -1,4 +1,4 @@
-const { findSimilar } = require('./findSimilar')
+const { setSimilar } = require('./findSimilar')
 module.exports = {
-    findSimilar
+    setSimilar
 }

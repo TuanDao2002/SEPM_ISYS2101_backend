@@ -4,13 +4,13 @@ const CustomError = require("../errors");
 const Food = require("../models/Food");
 const User = require("../models/User");
 
-const { findSimilar } = require('../computation/index')
+const { setSimilar } = require('../computation/index')
 
 // regex check if there are any tag
 const regex = /<.*>/g;
 
 const getAllFood = async (req, res) => {
-	findSimilar();
+	setSimilar();
 	let {
 		foodName,
 		category,
@@ -88,8 +88,7 @@ const getAllFood = async (req, res) => {
 		.populate({
 			path: "vendor",
 			select: "-_id username", // select username and not include _id
-		});
-
+		})
 	foods = foods.sort("-weightRating price -createdAt");
 	foods = foods.limit(resultsLimitPerLoading);
 	const results = await foods;
@@ -119,7 +118,19 @@ const getAllFood = async (req, res) => {
 
 const getFood = async (req, res) => {
 	const { id: foodId } = req.params;
-	const food = await Food.findOne({ _id: foodId });
+	const food = await Food.findOne({ _id: foodId })
+		.populate({
+			path: "vendor",
+			select: "-_id username", // select username and not include _id
+		})
+		.populate({
+			path: "similarOnes",
+			select: "foodName price vendor averageRating weightRating image taste location createdAt",
+			populate: {
+				path: "vendor",
+				select: "-_id username", // select username and not include _id
+			}
+		});
 
 	if (!food) {
 		throw new CustomError.NotFoundError(

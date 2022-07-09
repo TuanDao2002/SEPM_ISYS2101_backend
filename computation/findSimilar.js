@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Food = require("../models/Food");
 
 const createProfiles = async (allFoods) => {
@@ -6,7 +7,7 @@ const createProfiles = async (allFoods) => {
     for (food of allFoods) {
         let attributesSet = []
         const { foodName, category, type, taste } = food;
-        attributesSet = [foodName.split(" "), category, type, taste].flat();
+        attributesSet = [foodName, category, type, taste].flat();
         allProfiles[[food._id]] = attributesSet
     }
 
@@ -23,43 +24,48 @@ const union = (profile1, profile2) => {
     return [...new Set([...profile1, ...profile2])];
 }
 
+// using Jaccard similarity
 const calculateSimilarity = (attributesSet1, attributesSet2) => {
-    return intersection(attributesSet1, attributesSet2).length / union(attributesSet1, attributesSet2).length
+    const [name1, ...newAttributesSet1] = attributesSet1;
+    const [name2, ...newAttributesSet2] = attributesSet2;
+
+    const intersectionCount = intersection(newAttributesSet1, newAttributesSet2).length;
+    const unionCount = union(newAttributesSet1, newAttributesSet2).length;
+    if (name2.includes(name1)) {
+        return (1 + intersectionCount) / (1 + unionCount)
+    } else {
+        return intersectionCount / (2 + unionCount)
+    }
 }
 
-const findSimilar = async () => {
-    const allFoods = await Food.find();
-    const allProfiles = await createProfiles(allFoods)
-
-    /*
-    const profile1 = allProfiles[0]
-    for (let i = 1; i < allProfiles.length; i++) {
-        console.log(profile1.id + " and " + allProfiles[i].id)
-        console.log(profile1)
-        console.log(allProfiles[i])
-        console.log(intersection(profile1.attributesSet, allProfiles[i].attributesSet))
-        console.log(union(profile1.attributesSet, allProfiles[i].attributesSet))
-    }
-    */
-
-    for (food of allFoods) {
-        const similarFoods = [];
+const findSimilar = (food, allProfiles) => {
+    const similarFoods = [];
         const foodAttributesSet = allProfiles[food._id]
         for (profileID of Object.keys(allProfiles)) {
             if (food._id.toString() !== profileID) {
                 const otherFoodAttributesSet = allProfiles[profileID]
-                // console.log(otherFoodAttributesSet)
                 similarFoods.push({
-                    id: profileID,
-                    similarity: calculateSimilarity(foodAttributesSet, otherFoodAttributesSet)
+                    id: mongoose.Types.ObjectId(profileID),
+                    similarity: calculateSimilarity(foodAttributesSet, otherFoodAttributesSet),
+                    set: otherFoodAttributesSet
                 })
             }
         }
 
-        console.log(similarFoods)
+        similarFoods.sort((a, b) => b.similarity - a.similarity); // descending sort by similarity
+        food.similarOnes = similarFoods.map(food => food.id).slice(0, 3);
+}
+
+const setSimilar = async () => {
+    const allFoods = await Food.find();
+    const allProfiles = await createProfiles(allFoods)
+
+    for (food of allFoods) {
+        findSimilar(food, allProfiles);
+        await food.save();
     }
 }
 
 module.exports = {
-    findSimilar,
+    setSimilar,
 }
