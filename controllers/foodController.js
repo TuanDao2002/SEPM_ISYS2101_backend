@@ -4,10 +4,13 @@ const CustomError = require("../errors");
 const Food = require("../models/Food");
 const User = require("../models/User");
 
+const { findSimilar } = require('../computation/index')
+
 // regex check if there are any tag
 const regex = /<.*>/g;
 
 const getAllFood = async (req, res) => {
+	findSimilar();
 	let {
 		foodName,
 		category,
@@ -98,12 +101,12 @@ const getAllFood = async (req, res) => {
 		const lastResult = results[results.length - 1];
 		next_cursor = Buffer.from(
 			lastResult.weightRating +
-				"_" +
-				lastResult.price +
-				"_" +
-				lastResult.createdAt +
-				"_" +
-				lastResult._id
+			"_" +
+			lastResult.price +
+			"_" +
+			lastResult.createdAt +
+			"_" +
+			lastResult._id
 		).toString("base64");
 	}
 

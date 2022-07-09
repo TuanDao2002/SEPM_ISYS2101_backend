@@ -6,7 +6,7 @@ const FoodSchema = new mongoose.Schema(
             type: String,
             required: [true, "Please provide the food name"],
             minlength: [3, "Length must be greater than 3"],
-            maxlength: [50, "Length must be less than 20"],
+            maxlength: [50, "Length must be less than 50"],
             trim: true,
             unique: true,
         },
@@ -85,6 +85,14 @@ const FoodSchema = new mongoose.Schema(
             trim: true,
             default: "image",
         },
+
+        similarOnes: {
+            type: [{
+                type: mongoose.Schema.ObjectId,
+                ref: "Food",
+            }],
+            default: []
+        }
     },
     { timestamps: true }
 );
