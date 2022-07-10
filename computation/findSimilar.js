@@ -1,18 +1,6 @@
 const mongoose = require("mongoose");
 const Food = require("../models/Food");
-
-const createProfiles = async (allFoods) => {
-    let allProfiles = {};
-
-    for (food of allFoods) {
-        let attributesSet = []
-        const { foodName, category, type, taste } = food;
-        attributesSet = [foodName, category, type, taste].flat();
-        allProfiles[[food._id]] = attributesSet
-    }
-
-    return allProfiles;
-}
+const createProfiles = require("./createProfiles")
 
 const intersection = (profile1, profile2) => {
     var setProfile1 = new Set(profile1);
@@ -41,20 +29,19 @@ const calculateSimilarity = (attributesSet1, attributesSet2) => {
 const findSimilar = (food, allProfiles) => {
     const numOfSimilar = 3;
     const similarFoods = [];
-        const foodAttributesSet = allProfiles[food._id]
-        for (profileID of Object.keys(allProfiles)) {
-            if (food._id.toString() !== profileID) {
-                const otherFoodAttributesSet = allProfiles[profileID]
-                similarFoods.push({
-                    id: mongoose.Types.ObjectId(profileID),
-                    similarity: calculateSimilarity(foodAttributesSet, otherFoodAttributesSet),
-                    set: otherFoodAttributesSet
-                })
-            }
+    const foodAttributesSet = allProfiles[food._id]
+    for (profileID of Object.keys(allProfiles)) {
+        if (food._id.toString() !== profileID) {
+            const otherFoodAttributesSet = allProfiles[profileID]
+            similarFoods.push({
+                id: mongoose.Types.ObjectId(profileID),
+                similarity: calculateSimilarity(foodAttributesSet, otherFoodAttributesSet),
+            })
         }
+    }
 
-        similarFoods.sort((a, b) => b.similarity - a.similarity); // descending sort by similarity
-        food.similarOnes = similarFoods.map(food => food.id).slice(0, numOfSimilar);
+    similarFoods.sort((a, b) => b.similarity - a.similarity); // descending sort by similarity
+    food.similarOnes = similarFoods.map(food => food.id).slice(0, numOfSimilar);
 }
 
 const setSimilar = async () => {
@@ -68,5 +55,6 @@ const setSimilar = async () => {
 }
 
 module.exports = {
+    findSimilar,
     setSimilar,
 }

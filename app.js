@@ -63,6 +63,13 @@ app.use("/api/review", reivewRouter);
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
+// schedule computation jobs to be executed
+const nodeCron = require("node-cron")
+const { setSimilar } = require('./computation/index')
+
+// every midnight the server will update the similar foods for every food in the database
+const job = nodeCron.schedule("* * * * * *", setSimilar) 
+
 const port = process.env.PORT || 8080;
 
 const start = async () => {

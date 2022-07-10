@@ -4,13 +4,10 @@ const CustomError = require("../errors");
 const Food = require("../models/Food");
 const User = require("../models/User");
 
-const { setSimilar } = require('../computation/index')
-
 // regex check if there are any tag
 const regex = /<.*>/g;
 
 const getAllFood = async (req, res) => {
-	setSimilar();
 	let {
 		foodName,
 		category,
@@ -207,6 +204,17 @@ const updateFood = async (req, res) => {
 	if (foodName.match(regex) || location.match(regex)) {
 		throw new CustomError.BadRequestError(
 			"This food name or location must not have strange characters"
+		);
+	}
+
+	const duplicateFood = await Food.findOne({
+		foodName: { $regex: `^${foodName}$`, $options: "i" }, // find duplicate food with case insensitive
+		vendor: userId,
+	});
+
+	if (duplicateFood) {
+		throw new CustomError.BadRequestError(
+			"This food already exists in this vendor"
 		);
 	}
 
