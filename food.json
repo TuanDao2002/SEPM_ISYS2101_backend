@@ -1,0 +1,178 @@
+[
+    {
+        "foodName": "Bun bo",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Build 1",
+        "price": 30000,
+        "category": "Noodle",
+        "type": "Breakfast",
+        "taste": ["Salty", "Bitter"],
+        "prepareTime": 15,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Com suon",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Build 2",
+        "price": 65000,
+        "category": "Rice",
+        "type": "Breakfast",
+        "taste": ["Salty", "Sour"],
+        "prepareTime": 13,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Ham cheese",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Canteen",
+        "price": 13000,
+        "category": "Bread",
+        "type": "Lunch",
+        "taste": ["Salty", "Sweet"],
+        "prepareTime": 7,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Taco",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Hall",
+        "price": 27500,
+        "category": "Bread",
+        "type": "Dinner",
+        "taste": ["Salty", "Sour", "Sweet"],
+        "prepareTime": 8,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Spagheti",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Ligon",
+        "price": 68350,
+        "category": "Noodle",
+        "type": "Dinner",
+        "taste": ["Salty", "Sour"],
+        "prepareTime": 25,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Pizza",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Ligon",
+        "price": 350650,
+        "category": "Bread",
+        "type": "Lunch",
+        "taste": ["Salty", "Sweet", "Sour"],
+        "prepareTime": 26.5,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Cheese cake",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Sport hall",
+        "price": 49000,
+        "category": "Desert",
+        "type": "Lunch",
+        "taste": ["Sweet"],
+        "prepareTime": 1,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Fish sandwich",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Circle K",
+        "price": 14800,
+        "category": "Bread",
+        "type": "Breakfast",
+        "taste": ["Salty"],
+        "prepareTime": 2,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Waffle",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Canteen",
+        "price": 40300,
+        "category": "Bread",
+        "type": "Lunch",
+        "taste": ["Sweet"],
+        "prepareTime": 15,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Ice-cream",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Circle K",
+        "price": 4000,
+        "category": "Desert",
+        "type": "Lunch",
+        "taste": ["Sweet"],
+        "prepareTime": 2,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "English-breakfast",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Ligon",
+        "price": 79000,
+        "category": "Bread",
+        "type": "Breakfast",
+        "taste": ["Salty", "Sour"],
+        "prepareTime": 14,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Cup noodle",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Library",
+        "price": 0,
+        "category": "Noodle",
+        "type": "Dinner",
+        "taste": ["Salty"],
+        "prepareTime": 1,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Coffee",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Highland coffee",
+        "price": 36000,
+        "category": "Dessert",
+        "type": "Breakfast",
+        "taste": ["Sweet", "Bitter"],
+        "prepareTime": 4,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Bubble Tea",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Build 2",
+        "price": 30000,
+        "category": "Desert",
+        "type": "Dinner",
+        "taste": ["Sweet"],
+        "prepareTime": 8,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    }, 
+    {
+        "foodName": "Pho",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Build 2",
+        "price": 65000,
+        "category": "Noodle",
+        "type": "Breakfast",
+        "taste": ["Salty", "Sour", "Sweet"],
+        "prepareTime": 8,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Tuna sandwich",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Circle K",
+        "price": 13000,
+        "category": "Bread",
+        "type": "Lunch",
+        "taste": ["Salty", "Sweet"],
+        "prepareTime": 1,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    }
+]
