@@ -68,7 +68,7 @@ const nodeCron = require("node-cron")
 const { setSimilar } = require('./computation/index')
 
 // every midnight the server will update the similar foods for every food in the database
-const job = nodeCron.schedule("* * * * * *", setSimilar) 
+// const job = nodeCron.schedule("* * * * * *", setSimilar) 
 
 const port = process.env.PORT || 8080;
 
