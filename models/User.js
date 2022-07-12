@@ -35,6 +35,26 @@ const UserSchema = new mongoose.Schema({
 		required: true,
 		validate: [(val) => val.length >= 1, "Must have at least 1 IP"],
 	},
+
+	foodsLiked: {
+		type: [
+			{
+				type: mongoose.Schema.ObjectId,
+				ref: "Food",
+			},
+		],
+		default: [],
+	},
+
+	foodsNotLiked: {
+		type: [
+			{
+				type: mongoose.Schema.ObjectId,
+				ref: "Food",
+			},
+		],
+		default: [],
+	},
 });
 
 module.exports = mongoose.model("User", UserSchema);

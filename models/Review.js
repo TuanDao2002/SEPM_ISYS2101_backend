@@ -13,13 +13,14 @@ const ReviewSchema = new mongoose.Schema(
 			type: String,
 			trim: true,
 			required: [true, "Please provide the title"],
-			maxlength: 100,
+			maxlength: [100, "Length must be less than 100"],
 		},
 
 		comment: {
 			type: String,
 			required: [true, "Please provide the comment"],
-			maxlength: 100,
+			minlength: [1, "Length must be greater than 1"],
+			maxlength: [100, "Length must be less than 100"],
 		},
 
 		user: {
@@ -80,17 +81,33 @@ ReviewSchema.statics.calculateAverageRating = async function (foodId) {
 			(food.averageRating * food.numOfReviews +
 				averageRatingAllFood * acceptedNumOfReviews) /
 			(food.numOfReviews + acceptedNumOfReviews);
-            
+
 		food.weightRating = weightRating;
 		await food.save();
 	}
 };
 
 ReviewSchema.post("save", async function () {
+	if (this.rating >= 4) {
+		await this.model("User").updateOne(
+			{ _id: userId },
+			{ $addToSet: { foodsLiked: foodId } }
+		);
+	} else if (this.rating <= 2) {
+		await this.model("User").updateOne(
+			{ _id: userId },
+			{ $addToSet: { foodsNotLiked: foodId } }
+		);
+	}
 	await this.constructor.calculateAverageRating(this.food);
 });
 
 ReviewSchema.post("remove", async function () {
+	const user = await this.model("User").findOne({ _id: this.user });
+	const { foodsLiked, foodsNotLiked } = user;
+	if (foodsLiked.includes(this.food)) {
+		foodsLiked.remove()
+	}
 	await this.constructor.calculateAverageRating(this.food);
 });
 

@@ -3,6 +3,7 @@ const CustomError = require("../errors");
 
 const Review = require("../models/Review");
 const Food = require("../models/Food");
+const { createUserProfile } = require("../computation/index");
 
 // regex check if there are any tag
 const regex = /<.*>/g;
@@ -22,16 +23,16 @@ const createReview = async (req, res) => {
 		throw new CustomError.NotFoundError(`No food with id : ${foodId}`);
 	}
 
-    const alreadySubmitted = await Review.findOne({
-        food: foodId,
-        user: req.user.userId,
-    });
+	const alreadySubmitted = await Review.findOne({
+		food: foodId,
+		user: req.user.userId,
+	});
 
-    if (alreadySubmitted) {
-        throw new CustomError.BadRequestError(
-            "Already submitted review for this food"
-        );
-    }
+	if (alreadySubmitted) {
+		throw new CustomError.BadRequestError(
+			"Already submitted review for this food"
+		);
+	}
 
 	// escape tags to prevent XSS
 	const newReview = {
@@ -41,6 +42,8 @@ const createReview = async (req, res) => {
 		user: req.user.userId,
 		food: foodId,
 	};
+
+	await createUserProfile(rating, )
 
 	const review = await Review.create(newReview);
 	res.status(200).json({ review });
@@ -113,8 +116,8 @@ const updateReview = async (req, res) => {
 	}
 
 	review.rating = rating;
-	review.title = title
-	review.comment = comment
+	review.title = title;
+	review.comment = comment;
 
 	await review.save();
 	res.status(200).json({ review });
