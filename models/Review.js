@@ -90,29 +90,22 @@ ReviewSchema.statics.calculateAverageRating = async function (foodId) {
 ReviewSchema.post("save", async function () {
 	if (this.rating >= 4) {
 		await this.model("User").updateOne(
-			{ _id: userId },
-			{ $addToSet: { foodsLiked: foodId } }
+			{ _id: this.user },
+			{ $addToSet: { foodsLiked: this.food }, $pull: { foodsNotLiked: this.food } }
 		);
 	} else if (this.rating <= 2) {
 		await this.model("User").updateOne(
-			{ _id: userId },
-			{ $addToSet: { foodsNotLiked: foodId } }
+			{ _id: this.user },
+			{ $addToSet: { foodsNotLiked: this.food }, $pull: { foodsLiked: this.food } }
 		);
+	} else {
+		await this.model("User").updateOne({ _id: this.user }, { $pull: { foodsLiked: this.food, foodsNotLiked: this.food } });
 	}
 	await this.constructor.calculateAverageRating(this.food);
 });
 
 ReviewSchema.post("remove", async function () {
-	const user = await this.model("User").findOne({ _id: this.user });
-	const { foodsLiked, foodsNotLiked } = user;
-	if (foodsLiked.includes(this.food)) {
-		user.foodsLiked = foodsLiked.filter((foodId) => foodId != this.food);
-	} else if (foodsNotLiked.includes(this.food)) {
-		user.foodsNotLiked = foodsNotLiked.filter((foodId) => foodId != this.food);
-	}
-
-	await user.save();
-
+	await this.model("User").updateOne({ _id: this.user }, { $pull: { foodsLiked: this.food, foodsNotLiked: this.food } });
 	await this.constructor.calculateAverageRating(this.food);
 });
 

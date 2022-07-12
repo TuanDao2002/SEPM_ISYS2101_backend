@@ -3,7 +3,6 @@ const CustomError = require("../errors");
 
 const Review = require("../models/Review");
 const Food = require("../models/Food");
-const { createUserProfile } = require("../computation/index");
 
 // regex check if there are any tag
 const regex = /<.*>/g;
@@ -42,8 +41,6 @@ const createReview = async (req, res) => {
 		user: req.user.userId,
 		food: foodId,
 	};
-
-	await createUserProfile(rating, )
 
 	const review = await Review.create(newReview);
 	res.status(200).json({ review });
