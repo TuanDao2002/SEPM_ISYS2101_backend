@@ -106,8 +106,13 @@ ReviewSchema.post("remove", async function () {
 	const user = await this.model("User").findOne({ _id: this.user });
 	const { foodsLiked, foodsNotLiked } = user;
 	if (foodsLiked.includes(this.food)) {
-		foodsLiked.remove()
+		user.foodsLiked = foodsLiked.filter((foodId) => foodId != this.food);
+	} else if (foodsNotLiked.includes(this.food)) {
+		user.foodsNotLiked = foodsNotLiked.filter((foodId) => foodId != this.food);
 	}
+
+	await user.save();
+
 	await this.constructor.calculateAverageRating(this.food);
 });
 
