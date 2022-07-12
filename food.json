@@ -174,5 +174,105 @@
         "taste": ["Salty", "Sweet"],
         "prepareTime": 1,
         "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Bread",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Kings Bread Canteen",
+        "price": 15000,
+        "category": "Bread",
+        "type": "Breakfast",
+        "taste": ["Salty"],
+        "prepareTime": 4,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Udon",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Sorento",
+        "price": 79000,
+        "category": "Noodle",
+        "type": "Lunch",
+        "taste": ["Salty"],
+        "prepareTime": 5,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Rice with crunchy chicken",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Nine build 9",
+        "price": 45000,
+        "category": "Rice",
+        "type": "Lunch",
+        "taste": ["Salty", "Sweet", "Sour"],
+        "prepareTime": 10,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Tom Yum",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Build 8 floor 2",
+        "price": 55000,
+        "category": "Rice",
+        "type": "Lunch",
+        "taste": ["Salty", "Sweet", "Sour"],
+        "prepareTime": 4,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Nachos bowl with rice",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Lacatina",
+        "price": 47000,
+        "category": "Rice",
+        "type": "Lunch",
+        "taste": ["Salty"],
+        "prepareTime": 2,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Curry",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Curry",
+        "price": 60000,
+        "category": "Rice",
+        "type": "Lunch",
+        "taste": ["Salty"],
+        "prepareTime": 6,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Salad bowl",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Lacatina",
+        "price": 15000,
+        "category": "Bread",
+        "type": "Lunch",
+        "taste": ["Sour", "Sweet"],
+        "prepareTime": 2,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Noodle with dumpling",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Canteen",
+        "price": 60000,
+        "category": "Noodle",
+        "type": "Breakfast",
+        "taste": ["Salty", "Sweet"],
+        "prepareTime": 3,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+    },
+    {
+        "foodName": "Steak",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "location": "Sport hall",
+        "price": 255000,
+        "category": "Bread",
+        "type": "Dinner",
+        "taste": ["Salty"],
+        "prepareTime": 6,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
     }
+    
 ]
