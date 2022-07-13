@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Food = require("../models/Food");
-const createProfiles = require("./createProfiles")
 
 const intersection = (profile1, profile2) => {
     var setProfile1 = new Set(profile1);
