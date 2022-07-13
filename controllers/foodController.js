@@ -9,7 +9,12 @@ const { createAllAttributeSets, findSimilar } = require("../computation/index")
 // regex check if there are any tag
 const regex = /<.*>/g;
 
+const createAllFoodProfiles = require("../computation/createAllFoodProfiles")
+
 const getAllFood = async (req, res) => {
+	const allFoods = await Food.find();
+	const profiles = await createAllFoodProfiles(allFoods);
+	console.log(profiles);
 	let {
 		foodName,
 		category,
@@ -186,8 +191,10 @@ const createFood = async (req, res) => {
 	const food = await Food.create(newFood);
 
 	const allFoods = await Food.find();
-	const allAttributeSets = await createAllAttributeSets(allFoods);
-	await findSimilar(food, allAttributeSets);
+	const allAttributeSets = await createAllAttributeSets(allFoods)
+	for (eachFood of allFoods) {
+		findSimilar(eachFood, allAttributeSets);
+	}
 
 	res.status(StatusCodes.OK).json({ food });
 };
@@ -241,12 +248,13 @@ const updateFood = async (req, res) => {
 	food.prepareTime = prepareTime;
 	food.image = image;
 	await food.save();
+	res.status(StatusCodes.OK).json({ food });
 
 	const allFoods = await Food.find();
-	const allAttributeSets = await createAllAttributeSets(allFoods);
-	await findSimilar(food, allAttributeSets);
-
-	res.status(StatusCodes.OK).json({ food });
+	const allAttributeSets = await createAllAttributeSets(allFoods)
+	for (eachFood of allFoods) {
+		findSimilar(eachFood, allAttributeSets);
+	}
 };
 
 const deleteFood = async (req, res) => {
@@ -268,8 +276,8 @@ const deleteFood = async (req, res) => {
 
 	const allFoods = await Food.find();
 	const allAttributeSets = await createAllAttributeSets(allFoods)
-	for (otherFood of allFoods) {
-		findSimilar(otherFood, allAttributeSets);
+	for (eachFood of allFoods) {
+		findSimilar(eachFood, allAttributeSets);
 	}
 };
 
