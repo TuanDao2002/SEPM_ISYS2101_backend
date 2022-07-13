@@ -4,7 +4,7 @@ const CustomError = require("../errors");
 const Food = require("../models/Food");
 const User = require("../models/User");
 
-const { createProfiles, findSimilar } = require("../computation/index")
+const { createAllAttributeSets, findSimilar } = require("../computation/index")
 
 // regex check if there are any tag
 const regex = /<.*>/g;
@@ -186,8 +186,8 @@ const createFood = async (req, res) => {
 	const food = await Food.create(newFood);
 
 	const allFoods = await Food.find();
-	const profiles = await createProfiles(allFoods);
-	await findSimilar(food, profiles);
+	const allAttributeSets = await createAllAttributeSets(allFoods);
+	await findSimilar(food, allAttributeSets);
 
 	res.status(StatusCodes.OK).json({ food });
 };
@@ -243,8 +243,8 @@ const updateFood = async (req, res) => {
 	await food.save();
 
 	const allFoods = await Food.find();
-	const profiles = await createProfiles(allFoods);
-	await findSimilar(food, profiles);
+	const allAttributeSets = await createAllAttributeSets(allFoods);
+	await findSimilar(food, allAttributeSets);
 
 	res.status(StatusCodes.OK).json({ food });
 };
@@ -267,9 +267,9 @@ const deleteFood = async (req, res) => {
 	res.status(200).json({ msg: "Success! Food deleted" });
 
 	const allFoods = await Food.find();
-	const allProfiles = await createProfiles(allFoods)
+	const allAttributeSets = await createAllAttributeSets(allFoods)
 	for (otherFood of allFoods) {
-		findSimilar(otherFood, allProfiles);
+		findSimilar(otherFood, allAttributeSets);
 	}
 };
 

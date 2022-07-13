@@ -1,6 +1,6 @@
-const createProfiles = require("./createProfiles");
+const createAllAttributeSets = require("./createProfiles");
 const findSimilar = require("./findSimilar");
 module.exports = {
-	createProfiles,
+	createAllAttributeSets,
 	findSimilar
 };

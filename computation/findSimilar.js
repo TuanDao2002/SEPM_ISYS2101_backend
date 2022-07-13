@@ -46,14 +46,4 @@ const findSimilar = async (food, allProfiles) => {
     await food.save();
 }
 
-// const setSimilar = async () => {
-//     const allFoods = await Food.find();
-//     const allProfiles = await createProfiles(allFoods)
-
-//     for (food of allFoods) {
-//         findSimilar(food, allProfiles);
-//         await food.save();
-//     }
-// }
-
 module.exports = findSimilar

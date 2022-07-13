@@ -1,14 +1,14 @@
-const createProfiles = async (allFoods) => {
-    let allProfiles = {};
+const createAllAttributeSets = async (allFoods) => {
+    let allAttributeSets = {};
 
     for (food of allFoods) {
         let attributesSet = []
         const { foodName, category, type, taste } = food;
         attributesSet = [foodName, category, type, taste].flat();
-        allProfiles[[food._id]] = attributesSet
+        allAttributeSets[[food._id]] = attributesSet
     }
 
-    return allProfiles;
+    return allAttributeSets;
 }
 
-module.exports = createProfiles
+module.exports = createAllAttributeSets
