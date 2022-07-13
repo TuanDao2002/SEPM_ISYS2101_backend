@@ -65,10 +65,8 @@ app.use(errorHandlerMiddleware);
 
 // schedule computation jobs to be executed
 const nodeCron = require("node-cron")
-const { setSimilar } = require('./computation/index')
 
-// every midnight the server will update the similar foods for every food in the database
-const job = nodeCron.schedule("0 0 0 * * *", setSimilar) 
+// every midnight the server will update the recommending foods for each user
 
 const port = process.env.PORT || 8080;
 

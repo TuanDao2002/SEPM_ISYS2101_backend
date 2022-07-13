@@ -26,7 +26,7 @@ const calculateSimilarity = (attributesSet1, attributesSet2) => {
     }
 }
 
-const findSimilar = (food, allProfiles) => {
+const findSimilar = async (food, allProfiles) => {
     const numOfSimilar = 3;
     const similarFoods = [];
     const foodAttributesSet = allProfiles[food._id]
@@ -42,19 +42,18 @@ const findSimilar = (food, allProfiles) => {
 
     similarFoods.sort((a, b) => b.similarity - a.similarity); // descending sort by similarity
     food.similarOnes = similarFoods.map(food => food.id).slice(0, numOfSimilar);
+
+    await food.save();
 }
 
-const setSimilar = async () => {
-    const allFoods = await Food.find();
-    const allProfiles = await createProfiles(allFoods)
+// const setSimilar = async () => {
+//     const allFoods = await Food.find();
+//     const allProfiles = await createProfiles(allFoods)
 
-    for (food of allFoods) {
-        findSimilar(food, allProfiles);
-        await food.save();
-    }
-}
+//     for (food of allFoods) {
+//         findSimilar(food, allProfiles);
+//         await food.save();
+//     }
+// }
 
-module.exports = {
-    findSimilar,
-    setSimilar,
-}
+module.exports = findSimilar

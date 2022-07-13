@@ -1,6 +1,6 @@
 const createProfiles = require("./createProfiles");
-const { setSimilar } = require("./findSimilar");
+const findSimilar = require("./findSimilar");
 module.exports = {
 	createProfiles,
-	setSimilar,
+	findSimilar
 };

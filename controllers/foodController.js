@@ -4,6 +4,8 @@ const CustomError = require("../errors");
 const Food = require("../models/Food");
 const User = require("../models/User");
 
+const { createProfiles, findSimilar } = require("../computation/index")
+
 // regex check if there are any tag
 const regex = /<.*>/g;
 
@@ -182,6 +184,11 @@ const createFood = async (req, res) => {
 	};
 
 	const food = await Food.create(newFood);
+
+	const allFoods = await Food.find();
+	const profiles = await createProfiles(allFoods);
+	await findSimilar(food, profiles);
+
 	res.status(StatusCodes.OK).json({ food });
 };
 
@@ -212,38 +219,33 @@ const updateFood = async (req, res) => {
 		vendor: userId,
 	});
 
-	if (duplicateFood) {
+	if (duplicateFood && duplicateFood._id != foodId) {
 		throw new CustomError.BadRequestError(
 			"This food already exists in this vendor"
 		);
 	}
 
-	const updateFood = {
-		foodName,
-		location,
-		price,
-		category,
-		type,
-		taste,
-		prepareTime,
-		image,
-	};
-
-	const food = await Food.findOneAndUpdate(
-		{ _id: foodId, vendor: userId },
-		updateFood,
-		{
-			new: true, // always return the new updated object
-			runValidators: true, // always validate the attributes of the object
-			useFindAndModify: false, // not show warning message
-		}
-	);
-
+	const food = await Food.findOne({ _id: foodId, vendor: userId });
 	if (!food) {
 		throw new CustomError.BadRequestError(
 			`Food with id ${foodId} does not exist or this vendor does not own this food`
 		);
 	}
+
+	food.foodName = foodName;
+	food.location = location;
+	food.price = price;
+	food.category = category;
+	food.type = type;
+	food.taste = taste;
+	food.prepareTime = prepareTime;
+	food.image = image;
+	await food.save();
+
+	const allFoods = await Food.find();
+	const profiles = await createProfiles(allFoods);
+	await findSimilar(food, profiles);
+
 	res.status(StatusCodes.OK).json({ food });
 };
 
@@ -262,8 +264,13 @@ const deleteFood = async (req, res) => {
 	}
 
 	await food.remove();
-
 	res.status(200).json({ msg: "Success! Food deleted" });
+
+	const allFoods = await Food.find();
+	const allProfiles = await createProfiles(allFoods)
+	for (otherFood of allFoods) {
+		findSimilar(otherFood, allProfiles);
+	}
 };
 
 module.exports = {
