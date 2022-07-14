@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const createAllFoodProfiles = require("../computation/createAllFoodProfiles");
+const recommedFoodsForStudent = require("../computation/recommendFoodsForStudent");
 
 const ReviewSchema = new mongoose.Schema(
 	{
@@ -101,12 +103,21 @@ ReviewSchema.post("save", async function () {
 	} else {
 		await this.model("User").updateOne({ _id: this.user }, { $pull: { foodsLiked: this.food, foodsNotLiked: this.food } });
 	}
+
 	await this.constructor.calculateAverageRating(this.food);
+
+	const allFoods = await this.model("Food").find();
+	const profiles = await createAllFoodProfiles(allFoods);
+	await recommedFoodsForStudent(this.user, profiles);
 });
 
 ReviewSchema.post("remove", async function () {
 	await this.model("User").updateOne({ _id: this.user }, { $pull: { foodsLiked: this.food, foodsNotLiked: this.food } });
 	await this.constructor.calculateAverageRating(this.food);
+
+	const allFoods = await this.model("Food").find();
+	const profiles = await createAllFoodProfiles(allFoods);
+	await recommedFoodsForStudent(this.user, profiles);
 });
 
 module.exports = mongoose.model("Review", ReviewSchema);

@@ -55,6 +55,16 @@ const UserSchema = new mongoose.Schema({
 		],
 		default: [],
 	},
+
+	recommendFoods: {
+		type: [
+			{
+				type: mongoose.Schema.ObjectId,
+				ref: "Food",
+			},
+		],
+		default: []
+	}
 });
 
 module.exports = mongoose.model("User", UserSchema);

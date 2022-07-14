@@ -9,9 +9,6 @@ const { createAllAttributeSets, findSimilar } = require("../computation/index");
 // regex check if there are any tag
 const regex = /<.*>/g;
 
-const createAllFoodProfiles = require("../computation/createAllFoodProfiles");
-const recommedFoodsForStudent = require("../computation/recommendFoodsForStudent");
-
 const getAllFood = async (req, res) => {
 	let {
 		foodName,
@@ -281,12 +278,14 @@ const deleteFood = async (req, res) => {
 };
 
 const recommendFoods = async (req, res) => {
-	const studentID = req.user.userId;
-	const allFoods = await Food.find();
-	const profiles = await createAllFoodProfiles(allFoods);
-	const userProfile = await recommedFoodsForStudent(studentID, profiles);
-
-	res.status(200).json({ userProfile });
+	const user = await User.findOne({ _id: req.user.userId })
+		.select("recommendFoods")
+		.populate({
+			path: "recommendFoods",
+			select:
+				"foodName price vendor averageRating weightRating image taste location createdAt",
+		});
+	res.status(200).json({ user });
 };
 
 module.exports = {

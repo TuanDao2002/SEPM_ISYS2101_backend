@@ -1,8 +1,15 @@
+const mongoose = require("mongoose");
 const User = require("../models/User");
 
 const recommedFoodsForStudent = async (studentId, allProfiles) => {
+	// recommend foods for a student with content-based filtering
 	const student = await User.findOne({ _id: studentId });
 	const { foodsLiked, foodsNotLiked } = student;
+	if (foodsLiked.length === 0 && foodsNotLiked.length === 0) {
+		return [];
+	}
+	const numOfRecommendFoods = 5;
+
 	const userProfile = {
 		Noodle: 0,
 		Rice: 0,
@@ -59,7 +66,7 @@ const recommedFoodsForStudent = async (studentId, allProfiles) => {
 		}
 	}
 
-	let allPredictions = {};
+	let allPredictions = [];
 	for (foodId of Object.keys(allProfiles)) {
 		let predictionPossibility = 0;
 		for (attribute of Object.keys(userProfile)) {
@@ -69,10 +76,19 @@ const recommedFoodsForStudent = async (studentId, allProfiles) => {
 				idf[[attribute]];
 		}
 
-		allPredictions[[foodId]] = predictionPossibility;
+		allPredictions.push({
+			id: mongoose.Types.ObjectId(foodId),
+			predictionPossibility,
+		});
 	}
 
-	return allPredictions;
+	allPredictions.sort(
+		(a, b) => b.predictionPossibility - a.predictionPossibility
+	); // descending sort by prediction possibility
+	student.recommendFoods = allPredictions
+		.map((food) => food.id)
+		.slice(0, numOfRecommendFoods);
+	await student.save();
 };
 
 module.exports = recommedFoodsForStudent;
