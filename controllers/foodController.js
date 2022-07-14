@@ -4,17 +4,15 @@ const CustomError = require("../errors");
 const Food = require("../models/Food");
 const User = require("../models/User");
 
-const { createAllAttributeSets, findSimilar } = require("../computation/index")
+const { createAllAttributeSets, findSimilar } = require("../computation/index");
 
 // regex check if there are any tag
 const regex = /<.*>/g;
 
-const createAllFoodProfiles = require("../computation/createAllFoodProfiles")
+const createAllFoodProfiles = require("../computation/createAllFoodProfiles");
+const recommedFoodsForStudent = require("../computation/recommendFoodsForStudent");
 
 const getAllFood = async (req, res) => {
-	const allFoods = await Food.find();
-	const profiles = await createAllFoodProfiles(allFoods);
-	console.log(profiles);
 	let {
 		foodName,
 		category,
@@ -92,7 +90,7 @@ const getAllFood = async (req, res) => {
 		.populate({
 			path: "vendor",
 			select: "-_id username", // select username and not include _id
-		})
+		});
 	foods = foods.sort("-weightRating price -createdAt");
 	foods = foods.limit(resultsLimitPerLoading);
 	const results = await foods;
@@ -104,12 +102,12 @@ const getAllFood = async (req, res) => {
 		const lastResult = results[results.length - 1];
 		next_cursor = Buffer.from(
 			lastResult.weightRating +
-			"_" +
-			lastResult.price +
-			"_" +
-			lastResult.createdAt +
-			"_" +
-			lastResult._id
+				"_" +
+				lastResult.price +
+				"_" +
+				lastResult.createdAt +
+				"_" +
+				lastResult._id
 		).toString("base64");
 	}
 
@@ -129,11 +127,12 @@ const getFood = async (req, res) => {
 		})
 		.populate({
 			path: "similarOnes",
-			select: "foodName price vendor averageRating weightRating image taste location createdAt",
+			select:
+				"foodName price vendor averageRating weightRating image taste location createdAt",
 			populate: {
 				path: "vendor",
 				select: "-_id username", // select username and not include _id
-			}
+			},
 		});
 
 	if (!food) {
@@ -191,7 +190,7 @@ const createFood = async (req, res) => {
 	const food = await Food.create(newFood);
 
 	const allFoods = await Food.find();
-	const allAttributeSets = await createAllAttributeSets(allFoods)
+	const allAttributeSets = await createAllAttributeSets(allFoods);
 	for (eachFood of allFoods) {
 		findSimilar(eachFood, allAttributeSets);
 	}
@@ -251,7 +250,7 @@ const updateFood = async (req, res) => {
 	res.status(StatusCodes.OK).json({ food });
 
 	const allFoods = await Food.find();
-	const allAttributeSets = await createAllAttributeSets(allFoods)
+	const allAttributeSets = await createAllAttributeSets(allFoods);
 	for (eachFood of allFoods) {
 		findSimilar(eachFood, allAttributeSets);
 	}
@@ -275,10 +274,19 @@ const deleteFood = async (req, res) => {
 	res.status(200).json({ msg: "Success! Food deleted" });
 
 	const allFoods = await Food.find();
-	const allAttributeSets = await createAllAttributeSets(allFoods)
+	const allAttributeSets = await createAllAttributeSets(allFoods);
 	for (eachFood of allFoods) {
 		findSimilar(eachFood, allAttributeSets);
 	}
+};
+
+const recommendFoods = async (req, res) => {
+	const studentID = req.user.userId;
+	const allFoods = await Food.find();
+	const profiles = await createAllFoodProfiles(allFoods);
+	const userProfile = await recommedFoodsForStudent(studentID, profiles);
+
+	res.status(200).json({ userProfile });
 };
 
 module.exports = {
@@ -287,4 +295,5 @@ module.exports = {
 	createFood,
 	updateFood,
 	deleteFood,
+	recommendFoods,
 };

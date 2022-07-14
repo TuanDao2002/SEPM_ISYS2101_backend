@@ -25,15 +25,15 @@ const calculateSimilarity = (attributesSet1, attributesSet2) => {
     }
 }
 
-const findSimilar = async (food, allProfiles) => {
+const findSimilar = async (food, allAttributeSets) => {
     const numOfSimilar = 3;
     const similarFoods = [];
-    const foodAttributesSet = allProfiles[food._id]
-    for (profileID of Object.keys(allProfiles)) {
-        if (food._id.toString() !== profileID) {
-            const otherFoodAttributesSet = allProfiles[profileID]
+    const foodAttributesSet = allAttributeSets[food._id]
+    for (foodID of Object.keys(allAttributeSets)) {
+        if (food._id.toString() !== foodID) {
+            const otherFoodAttributesSet = allAttributeSets[foodID]
             similarFoods.push({
-                id: mongoose.Types.ObjectId(profileID),
+                id: mongoose.Types.ObjectId(foodID),
                 similarity: calculateSimilarity(foodAttributesSet, otherFoodAttributesSet),
             })
         }
