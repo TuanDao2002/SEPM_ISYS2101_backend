@@ -4,7 +4,7 @@ const CustomError = require("../errors");
 const Food = require("../models/Food");
 const User = require("../models/User");
 
-const { createAllAttributeSets, findSimilar } = require("../computation/index");
+const { createAllAttributeSets, findSimilar, createAllFoodProfiles, recommedFoodsForStudent } = require("../computation/index");
 
 // regex check if there are any tag
 const regex = /<.*>/g;
@@ -99,12 +99,12 @@ const getAllFood = async (req, res) => {
 		const lastResult = results[results.length - 1];
 		next_cursor = Buffer.from(
 			lastResult.weightRating +
-				"_" +
-				lastResult.price +
-				"_" +
-				lastResult.createdAt +
-				"_" +
-				lastResult._id
+			"_" +
+			lastResult.price +
+			"_" +
+			lastResult.createdAt +
+			"_" +
+			lastResult._id
 		).toString("base64");
 	}
 
@@ -185,6 +185,7 @@ const createFood = async (req, res) => {
 	};
 
 	const food = await Food.create(newFood);
+	res.status(StatusCodes.OK).json({ food });
 
 	const allFoods = await Food.find();
 	const allAttributeSets = await createAllAttributeSets(allFoods);
@@ -192,7 +193,11 @@ const createFood = async (req, res) => {
 		findSimilar(eachFood, allAttributeSets);
 	}
 
-	res.status(StatusCodes.OK).json({ food });
+	const profiles = await createAllFoodProfiles(allFoods);
+	const allStudents = await User.find({ role: "student" });
+	for (eachStudent of allStudents) {
+		await recommedFoodsForStudent(eachStudent._id, profiles);
+	}
 };
 
 const updateFood = async (req, res) => {
@@ -251,6 +256,12 @@ const updateFood = async (req, res) => {
 	for (eachFood of allFoods) {
 		findSimilar(eachFood, allAttributeSets);
 	}
+
+	const profiles = await createAllFoodProfiles(allFoods);
+	const allStudents = await User.find({ role: "student" });
+	for (eachStudent of allStudents) {
+		await recommedFoodsForStudent(eachStudent._id, profiles);
+	}
 };
 
 const deleteFood = async (req, res) => {
@@ -274,6 +285,12 @@ const deleteFood = async (req, res) => {
 	const allAttributeSets = await createAllAttributeSets(allFoods);
 	for (eachFood of allFoods) {
 		findSimilar(eachFood, allAttributeSets);
+	}
+
+	const profiles = await createAllFoodProfiles(allFoods);
+	const allStudents = await User.find({ role: "student" });
+	for (eachStudent of allStudents) {
+		await recommedFoodsForStudent(eachStudent._id, profiles);
 	}
 };
 

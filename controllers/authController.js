@@ -139,11 +139,12 @@ const login = async (req, res) => {
         return;
     }
 
-    await sendOTPtoEmail(findUser.email, otp, null);
     res.status(StatusCodes.OK).json({
         hash: fullHash,
         msg: `Check your email for OTP to login`,
     });
+
+    await sendOTPtoEmail(findUser.email, otp, null);
 };
 
 const verifyOTP = async (req, res) => {

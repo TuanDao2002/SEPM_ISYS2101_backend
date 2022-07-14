@@ -104,6 +104,7 @@ FoodSchema.index({ vendor: 1 }, { price: 1, createdAt: -1 });
 FoodSchema.pre("remove", async function () {
 	await this.model("Review").deleteMany({ food: this._id });
 	await this.model("Food").updateMany({ $pull: { similarOnes: this._id } });
+	await this.model("User").updateMany({ role: "student" }, { $pull: { foodsLiked: this._id, foodsNotLiked: this._id, recommendFoods: this._id } });
 });
 
 module.exports = mongoose.model("Food", FoodSchema);

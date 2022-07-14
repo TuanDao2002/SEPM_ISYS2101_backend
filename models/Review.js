@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const createAllFoodProfiles = require("../computation/createAllFoodProfiles");
-const recommedFoodsForStudent = require("../computation/recommendFoodsForStudent");
+const { createAllFoodProfiles, recommedFoodsForStudent } = require("../computation/index");
 
 const ReviewSchema = new mongoose.Schema(
 	{
