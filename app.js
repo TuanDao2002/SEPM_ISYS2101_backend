@@ -36,7 +36,7 @@ app.use(
 	cors({
 		credentials: true, 
 		// origin: "http://localhost:3000",// only allow website in this domain too access the resource of this server
-		origin: "https://rmit-what-to-eat.netlify.app",// only allow website in this domain too access the resource of this server
+		origin: ["https://rmit-what-to-eat.netlify.app"],// only allow website in this domain too access the resource of this server
 	})
 );
 // app.use(cors());
