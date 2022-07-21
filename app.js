@@ -35,7 +35,7 @@ app.use(helmet());
 app.use(
 	cors({
 		origin: "http://localhost:3000",
-		credential: true, // only allow website in this domain too access the resource of this server
+		credentials: true, // only allow website in this domain too access the resource of this server
 	})
 );
 // app.use(cors());
