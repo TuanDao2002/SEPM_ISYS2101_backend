@@ -14,7 +14,7 @@ const attachCookiesToResponse = ({ res, user, refreshToken }) => {
     const longerExp = 1000 * 60 * 60 * 24 * 30;
 
     res.cookie("accessToken", accessTokenJWT, {
-        domain: "http://localhost:3000",
+        domain: ".localhost:3000",
         httpOnly: true,
         // secure: true, // later in production
         samesite: "strict",
@@ -22,7 +22,7 @@ const attachCookiesToResponse = ({ res, user, refreshToken }) => {
     });
 
     res.cookie("refreshToken", refreshTokenJWT, {
-        domain: "http://localhost:3000",
+        domain: ".localhost:3000",
         httpOnly: true,
         // secure: true, // later in production
         samesite: "strict",
