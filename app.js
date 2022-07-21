@@ -24,7 +24,7 @@ const reivewRouter = require("./routes/reviewRoutes");
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 
-app.set("trust proxy", 1);
+// app.set("trust proxy", 1);
 // app.use(
 // 	rateLimiter({
 // 		windowMs: 15 * 60 * 1000, // 15 minutes
@@ -34,8 +34,8 @@ app.set("trust proxy", 1);
 app.use(helmet());
 app.use(
 	cors({
-		origin: "http://localhost:3000",
-		credentials: true, // only allow website in this domain too access the resource of this server
+		credentials: true, 
+		origin: "http://localhost:3000",// only allow website in this domain too access the resource of this server
 	})
 );
 // app.use(cors());
