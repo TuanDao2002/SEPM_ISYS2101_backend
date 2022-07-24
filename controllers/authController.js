@@ -48,7 +48,7 @@ const register = async (req, res) => {
         process.env.VERIFICATION_SECRET
     );
 
-    const origin = "http://localhost:3000"; // later this is the origin link of React client side
+    const origin = process.env.NODE_ENV === "dev" ? "http://localhost:3000" : process.env.REACT_APP_LINK; // later this is the origin link of React client side
     await sendVerificationEmail(
         req.useragent.browser,
         email,
@@ -132,9 +132,9 @@ const login = async (req, res) => {
     const ip = getIP(req);
     if (!findUser.ipAddresses.includes(ip)) {
         await sendOTPtoEmail(findUser.email, otp, req.useragent.browser);
-        res.status(StatusCodes.FORBIDDEN).json({
+        res.status(StatusCodes.OK).json({
             hash: fullHash,
-            msg: "Login from different IP. If this is your device, check your email to verify",
+            msg: "Login from different IP. If this is your device, check your email for OTP to login",
         });
         return;
     }
