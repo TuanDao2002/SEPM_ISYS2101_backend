@@ -79,6 +79,11 @@ const FoodSchema = new mongoose.Schema(
 			default: 0,
 		},
 
+		quantity: {
+			type: Number,
+			default: 0			
+		},
+
 		image: {
 			type: String,
 			required: [true, "Please provide the image"],
