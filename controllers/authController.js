@@ -48,7 +48,7 @@ const register = async (req, res) => {
         process.env.VERIFICATION_SECRET
     );
 
-    const origin = "http://localhost:3000"; // later this is the origin link of React client side
+    const origin = process.env.NODE_ENV === "dev" ? "http://localhost:3000" : process.env.REACT_APP_LINK; // later this is the origin link of React client side
     await sendVerificationEmail(
         req.useragent.browser,
         email,
@@ -177,6 +177,7 @@ const verifyOTP = async (req, res) => {
 
         const tokenUser = {
             username: findUser.username,
+            email: findUser.email,
             userId: findUser._id,
             role: findUser.role,
         };
