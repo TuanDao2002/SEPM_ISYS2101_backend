@@ -82,7 +82,7 @@ const getAllFood = async (req, res) => {
 	const resultsLimitPerLoading = 5;
 	let foods = Food.find(queryObject)
 		.select(
-			"foodName price vendor averageRating weightRating image taste location createdAt"
+			"foodName price vendor averageRating weightRating image createdAt"
 		)
 		.populate({
 			path: "vendor",
@@ -125,7 +125,7 @@ const getFood = async (req, res) => {
 		.populate({
 			path: "similarOnes",
 			select:
-				"foodName price vendor averageRating weightRating image taste location createdAt",
+				"foodName price vendor averageRating weightRating image createdAt",
 			populate: {
 				path: "vendor",
 				select: "-_id username", // select username and not include _id
@@ -300,7 +300,7 @@ const recommendFoods = async (req, res) => {
 		.populate({
 			path: "recommendFoods",
 			select:
-				"foodName price vendor averageRating weightRating image taste location createdAt",
+				"foodName price vendor averageRating weightRating image createdAt",
 		});
 	res.status(200).json({ user });
 };
