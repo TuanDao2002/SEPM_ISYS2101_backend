@@ -48,7 +48,7 @@ const register = async (req, res) => {
         process.env.VERIFICATION_SECRET
     );
 
-    const origin = process.env.NODE_ENV === "dev" ? "http://localhost:3000" : process.env.REACT_APP_LINK; // later this is the origin link of React client side
+    const origin = process.env.NODE_ENV === "dev" ? "http://localhost:3000" : process.env.REACT_APP_LINK; // later this is the origin link of Netlify client side
     await sendVerificationEmail(
         req.useragent.browser,
         email,
