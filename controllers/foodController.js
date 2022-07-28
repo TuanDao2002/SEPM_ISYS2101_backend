@@ -196,7 +196,7 @@ const createFood = async (req, res) => {
 	const profiles = await createAllFoodProfiles(allFoods);
 	const allStudents = await User.find({ role: "student" });
 	for (eachStudent of allStudents) {
-		await recommedFoodsForStudent(eachStudent._id, profiles);
+		recommedFoodsForStudent(eachStudent._id, profiles);
 	}
 };
 
@@ -260,7 +260,7 @@ const updateFood = async (req, res) => {
 	const profiles = await createAllFoodProfiles(allFoods);
 	const allStudents = await User.find({ role: "student" });
 	for (eachStudent of allStudents) {
-		await recommedFoodsForStudent(eachStudent._id, profiles);
+		recommedFoodsForStudent(eachStudent._id, profiles);
 	}
 };
 
@@ -290,7 +290,7 @@ const deleteFood = async (req, res) => {
 	const profiles = await createAllFoodProfiles(allFoods);
 	const allStudents = await User.find({ role: "student" });
 	for (eachStudent of allStudents) {
-		await recommedFoodsForStudent(eachStudent._id, profiles);
+		recommedFoodsForStudent(eachStudent._id, profiles);
 	}
 };
 

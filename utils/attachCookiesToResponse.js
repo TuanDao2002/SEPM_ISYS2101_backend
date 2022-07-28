@@ -15,15 +15,15 @@ const attachCookiesToResponse = ({ res, user, refreshToken }) => {
 
     res.cookie("accessToken", accessTokenJWT, {
         httpOnly: true,
-        // secure: true, // later in production
-        samesite: "strict",
+        secure: true, // later in production
+        sameSite: "strict",
         expires: new Date(Date.now() + oneDay),
     });
 
     res.cookie("refreshToken", refreshTokenJWT, {
         httpOnly: true,
-        // secure: true, // later in production
-        samesite: "strict",
+        secure: true, // later in production
+        sameSite: "strict",
         expires: new Date(Date.now() + longerExp),
     });
 };

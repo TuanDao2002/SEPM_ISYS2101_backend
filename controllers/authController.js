@@ -132,9 +132,9 @@ const login = async (req, res) => {
     const ip = getIP(req);
     if (!findUser.ipAddresses.includes(ip)) {
         await sendOTPtoEmail(findUser.email, otp, req.useragent.browser);
-        res.status(StatusCodes.FORBIDDEN).json({
+        res.status(StatusCodes.OK).json({
             hash: fullHash,
-            msg: "Login from different IP. If this is your device, check your email to verify",
+            msg: "Login from different IP. If this is your device, check your email for OTP to login",
         });
         return;
     }
