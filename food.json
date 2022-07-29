@@ -8,7 +8,7 @@
         "type": "Breakfast",
         "taste": ["Salty", "Bitter"],
         "prepareTime": 15,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061416/file-upload/Noodle_e6ng98.jpg"
     },
     {
         "foodName": "Com suon",
@@ -19,7 +19,7 @@
         "type": "Breakfast",
         "taste": ["Salty", "Sour"],
         "prepareTime": 13,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061426/file-upload/Rice_dbgqu6.jpg"
     },
     {
         "foodName": "Ham cheese",
@@ -30,7 +30,7 @@
         "type": "Lunch",
         "taste": ["Salty", "Sweet"],
         "prepareTime": 7,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
     },
     {
         "foodName": "Taco",
@@ -41,7 +41,7 @@
         "type": "Dinner",
         "taste": ["Salty", "Sour", "Sweet"],
         "prepareTime": 8,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
     },
     {
         "foodName": "Spagheti",
@@ -52,7 +52,7 @@
         "type": "Dinner",
         "taste": ["Salty", "Sour"],
         "prepareTime": 25,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061416/file-upload/Noodle_e6ng98.jpg"
     },
     {
         "foodName": "Pizza",
@@ -63,7 +63,7 @@
         "type": "Lunch",
         "taste": ["Salty", "Sweet", "Sour"],
         "prepareTime": 26.5,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
     },
     {
         "foodName": "Cheese cake",
@@ -74,7 +74,7 @@
         "type": "Lunch",
         "taste": ["Sweet"],
         "prepareTime": 1,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061441/file-upload/Dessert_hbpti0.jpg"
     },
     {
         "foodName": "Fish sandwich",
@@ -85,7 +85,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 2,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
     },
     {
         "foodName": "Waffle",
@@ -96,7 +96,7 @@
         "type": "Lunch",
         "taste": ["Sweet"],
         "prepareTime": 15,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
     },
     {
         "foodName": "Ice-cream",
@@ -107,7 +107,7 @@
         "type": "Lunch",
         "taste": ["Sweet"],
         "prepareTime": 2,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061441/file-upload/Dessert_hbpti0.jpg"
     },
     {
         "foodName": "English-breakfast",
@@ -118,7 +118,7 @@
         "type": "Breakfast",
         "taste": ["Salty", "Sour"],
         "prepareTime": 14,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
     },
     {
         "foodName": "Cup noodle",
@@ -129,7 +129,7 @@
         "type": "Dinner",
         "taste": ["Salty"],
         "prepareTime": 1,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061416/file-upload/Noodle_e6ng98.jpg"
     },
     {
         "foodName": "Coffee",
@@ -140,7 +140,7 @@
         "type": "Breakfast",
         "taste": ["Sweet", "Bitter"],
         "prepareTime": 4,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061441/file-upload/Dessert_hbpti0.jpg"
     },
     {
         "foodName": "Bubble Tea",
@@ -151,7 +151,7 @@
         "type": "Dinner",
         "taste": ["Sweet"],
         "prepareTime": 8,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061441/file-upload/Dessert_hbpti0.jpg"
     }, 
     {
         "foodName": "Pho",
@@ -162,7 +162,7 @@
         "type": "Breakfast",
         "taste": ["Salty", "Sour", "Sweet"],
         "prepareTime": 8,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061416/file-upload/Noodle_e6ng98.jpg"
     },
     {
         "foodName": "Tuna sandwich",
@@ -173,7 +173,7 @@
         "type": "Lunch",
         "taste": ["Salty", "Sweet"],
         "prepareTime": 1,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
     },
     {
         "foodName": "Bread",
@@ -184,7 +184,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 4,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
     },
     {
         "foodName": "Udon",
@@ -195,7 +195,7 @@
         "type": "Lunch",
         "taste": ["Salty"],
         "prepareTime": 5,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061416/file-upload/Noodle_e6ng98.jpg"
     },
     {
         "foodName": "Rice with crunchy chicken",
@@ -206,7 +206,7 @@
         "type": "Lunch",
         "taste": ["Salty", "Sweet", "Sour"],
         "prepareTime": 10,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061426/file-upload/Rice_dbgqu6.jpg"
     },
     {
         "foodName": "Tom Yum",
@@ -217,7 +217,7 @@
         "type": "Lunch",
         "taste": ["Salty", "Sweet", "Sour"],
         "prepareTime": 4,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061426/file-upload/Rice_dbgqu6.jpg"
     },
     {
         "foodName": "Nachos bowl with rice",
@@ -228,7 +228,7 @@
         "type": "Lunch",
         "taste": ["Salty"],
         "prepareTime": 2,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061426/file-upload/Rice_dbgqu6.jpg"
     },
     {
         "foodName": "Curry",
@@ -239,7 +239,7 @@
         "type": "Lunch",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061426/file-upload/Rice_dbgqu6.jpg"
     },
     {
         "foodName": "Salad bowl",
@@ -261,7 +261,7 @@
         "type": "Breakfast",
         "taste": ["Salty", "Sweet"],
         "prepareTime": 3,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061416/file-upload/Noodle_e6ng98.jpg"
     },
     {
         "foodName": "Steak",
@@ -272,7 +272,7 @@
         "type": "Dinner",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1656385071/cld-sample-4.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
     }
     
 ]
