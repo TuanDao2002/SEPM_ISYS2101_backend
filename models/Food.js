@@ -34,7 +34,7 @@ const FoodSchema = new mongoose.Schema(
 			type: String,
 			required: [true, "Please provide category"],
 			enum: {
-				values: ["Noodle", "Rice", "Soup", "Bread", "Desert"],
+				values: ["Noodle", "Rice", "Soup", "Bread", "Dessert"],
 				message: "{VALUE} is not a supported category", // Error message
 			},
 		},
