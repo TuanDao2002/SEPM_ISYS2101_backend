@@ -55,14 +55,13 @@ const getSingleFoodReviews = async (req, res) => {
 
 	const resultsLimitPerLoading = 4;
 	if (next_cursor) {
-		const [rating, createdAt, _id] = Buffer.from(next_cursor, "base64")
+		const [rating, createdAt] = Buffer.from(next_cursor, "base64")
 			.toString("ascii")
 			.split("_");
 
 		queryObject.$or = [
 			{ rating: { $lt: rating } },
-			{ rating: rating, createdAt: { $lt: createdAt } },
-			{ createdAt: createdAt, _id: { $lt: _id } },
+			{ rating: rating, createdAt: { $lt: createdAt } }
 		];
 	}
 
@@ -81,7 +80,7 @@ const getSingleFoodReviews = async (req, res) => {
 	if (results.length !== count) {
 		const lastReview = results[results.length - 1];
 		next_cursor = Buffer.from(
-			lastReview.rating + "_" + lastReview.createdAt + "_" + lastReview._id
+			lastReview.rating + "_" + lastReview.createdAt.toISOString()
 		).toString("base64");
 	}
 

@@ -64,7 +64,7 @@ const getAllFood = async (req, res) => {
 	}
 
 	if (next_cursor) {
-		const [weightRating, price, createdAt, _id] = Buffer.from(
+		const [weightRating, price, createdAt] = Buffer.from(
 			next_cursor,
 			"base64"
 		)
@@ -74,8 +74,7 @@ const getAllFood = async (req, res) => {
 		queryObject.$or = [
 			{ weightRating: { $lt: weightRating } },
 			{ weightRating: weightRating, price: { $gt: price } },
-			{ price: price, createdAt: { $lt: createdAt } },
-			{ createdAt: createdAt, _id: { $lt: _id } },
+			{ price: price, createdAt: { $lt: createdAt } }
 		];
 	}
 
@@ -102,9 +101,7 @@ const getAllFood = async (req, res) => {
 			"_" +
 			lastResult.price +
 			"_" +
-			lastResult.createdAt +
-			"_" +
-			lastResult._id
+			lastResult.createdAt.toISOString()
 		).toString("base64");
 	}
 
