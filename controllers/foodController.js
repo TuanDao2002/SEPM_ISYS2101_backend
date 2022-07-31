@@ -32,6 +32,13 @@ const getAllFood = async (req, res) => {
     }
 
     if (category) {
+        if (
+            !["Noodle", "Rice", "Soup", "Bread", "Dessert"].includes(category)
+        ) {
+            throw new CustomError.BadRequestError(
+                "This category does not exist"
+            );
+        }
         queryObject.category = category;
     }
 
@@ -45,16 +52,27 @@ const getAllFood = async (req, res) => {
     }
 
     if (taste) {
+        for (t of taste.split(",")) {
+            if (!["Sweet", "Sour", "Bitter", "Salty"].includes(t)) {
+                throw new CustomError.BadRequestError("A taste does not exist");
+            }
+        }
         queryObject.taste = {
             $in: taste.split(","),
         };
     }
 
     if (minPrice) {
+        if (isNaN(minPrice)) {
+            throw new CustomError.BadRequestError("Min price is not a number");
+        }
         queryObject.price = { $gte: Number(minPrice) };
     }
 
     if (maxPrice) {
+        if (isNaN(maxPrice)) {
+            throw new CustomError.BadRequestError("Max price is not a number");
+        }
         queryObject.price = { ...queryObject.price, $lte: Number(maxPrice) }; // use spread operator to NOT override the previous field
     }
 
