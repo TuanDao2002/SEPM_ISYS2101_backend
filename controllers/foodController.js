@@ -79,8 +79,7 @@ const getAllFood = async (req, res) => {
         queryObject.$or = [
             { weightRating: { $lt: weightRating } },
             { weightRating: weightRating, price: { $gt: price } },
-            { price: price, createdAt: { $lt: createdAt } },
-            { createdAt: createdAt, _id: { $ne: _id } },
+            { price: price, createdAt: { $lte: createdAt }, _id: { $lt: _id } },
         ];
     }
 
@@ -93,7 +92,7 @@ const getAllFood = async (req, res) => {
             path: "vendor",
             select: "-_id username", // select username and not include _id
         });
-    foods = foods.sort("-weightRating price -createdAt");
+    foods = foods.sort("-weightRating price -createdAt -_id");
     foods = foods.limit(resultsLimitPerLoading);
     const results = await foods;
 

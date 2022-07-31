@@ -61,8 +61,11 @@ const getSingleFoodReviews = async (req, res) => {
 
         queryObject.$or = [
             { rating: { $lt: rating } },
-            { rating: rating, createdAt: { $lte: createdAt } },
-            { createdAt: createdAt, _id: { $ne: _id } },
+            {
+                rating: rating,
+                createdAt: { $lte: createdAt },
+                _id: { $lt: _id },
+            },
         ];
     }
 
@@ -71,7 +74,7 @@ const getSingleFoodReviews = async (req, res) => {
         select: "-_id username", // select username and not include _id
     });
 
-    reviews = reviews.sort("-rating -createdAt");
+    reviews = reviews.sort("-rating -createdAt -_id");
     reviews = reviews.limit(resultsLimitPerLoading);
     const results = await reviews;
 
