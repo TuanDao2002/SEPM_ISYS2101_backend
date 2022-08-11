@@ -82,7 +82,6 @@ const getAllFood = async (req, res) => {
         // if meal type is not specified
         const now = new Date();
         const hours = new Date(now.getTime() - now.getTimezoneOffset()*60*1000).getHours(); // get the hour of the day based on local time
-        console.log(hours)
         const type = hours < 11 ? "Breakfast" : hours < 16 ? "Lunch" : "Dinner"; // return the meal type based on the hour of the day
         queryObject.type = type;
     }
@@ -137,6 +136,7 @@ const getAllFood = async (req, res) => {
         results,
         remainingResults,
         next_cursor,
+        hour: new Date(now.getTime() - now.getTimezoneOffset()*60*1000).getHours()
     });
 };
 
