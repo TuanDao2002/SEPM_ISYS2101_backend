@@ -78,15 +78,7 @@ const getAllFood = async (req, res) => {
 
     if (type) {
         queryObject.type = type;
-    } else {
-        // if meal type is not specified
-        const now = new Date();
-        const hours = new Date(now.getTime() - now.getTimezoneOffset()*60*1000).getHours(); // get the hour of the day based on local time
-        const type = hours < 11 ? "Breakfast" : hours < 16 ? "Lunch" : "Dinner"; // return the meal type based on the hour of the day
-        queryObject.type = type;
     }
-
-    console.log(queryObject)
 
     if (next_cursor) {
         const [weightRating, price, createdAt, _id] = Buffer.from(
@@ -132,12 +124,10 @@ const getAllFood = async (req, res) => {
         ).toString("base64");
     }
 
-    const now = new Date();
     res.status(StatusCodes.OK).json({
         results,
         remainingResults,
         next_cursor,
-        hour: new Date(now.getTime() - now.getTimezoneOffset()*60*1000).getHours()
     });
 };
 
