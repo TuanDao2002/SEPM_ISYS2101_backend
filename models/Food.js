@@ -27,6 +27,7 @@ const FoodSchema = new mongoose.Schema(
 
 		price: {
 			type: Number,
+			min: [0, "Price must be positive"],
 			required: [true, "Please provide the price"],
 		},
 
@@ -81,6 +82,7 @@ const FoodSchema = new mongoose.Schema(
 
 		quantity: {
 			type: Number,
+			min: [0, "Quantity must be positive"],
 			default: 0			
 		},
 
