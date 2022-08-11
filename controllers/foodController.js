@@ -132,6 +132,7 @@ const getAllFood = async (req, res) => {
         ).toString("base64");
     }
 
+    const now = new Date();
     res.status(StatusCodes.OK).json({
         results,
         remainingResults,
