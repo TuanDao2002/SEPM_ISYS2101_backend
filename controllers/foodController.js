@@ -101,7 +101,7 @@ const getAllFood = async (req, res) => {
         ];
     }
 
-    const resultsLimitPerLoading = 5;
+    const resultsLimitPerLoading = 4;
     let foods = Food.find(queryObject)
         .select(
             "foodName price vendor averageRating weightRating image createdAt"
