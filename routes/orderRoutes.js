@@ -11,6 +11,7 @@ const {
     orderFood,
     getOrders,
     fulfillOrder,
+    getSubscriptionToken,
 } = require("../controllers/orderController");
 
 router
@@ -31,5 +32,12 @@ router
 router
     .route("/fulfillOrder/:id")
     .patch([authenticateUser, authorizePermissions("vendor")], fulfillOrder);
+
+router
+    .route("/getSubscriptionToken")
+    .get(
+        [authenticateUser, authorizePermissions("vendor")],
+        getSubscriptionToken
+    );
 
 module.exports = router;

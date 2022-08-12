@@ -159,6 +159,7 @@ const createFood = async (req, res) => {
     const {
         body: {
             foodName,
+            foodDescription,
             location,
             price,
             category,
@@ -189,6 +190,7 @@ const createFood = async (req, res) => {
 
     const newFood = {
         foodName,
+        foodDescription,
         location,
         price,
         category,
@@ -220,6 +222,7 @@ const updateFood = async (req, res) => {
         params: { id: foodId },
         body: {
             foodName,
+            foodDescription,
             location,
             price,
             category,
@@ -256,6 +259,7 @@ const updateFood = async (req, res) => {
     }
 
     food.foodName = foodName;
+    food.foodDescription = foodDescription;
     food.location = location;
     food.price = price;
     food.category = category;

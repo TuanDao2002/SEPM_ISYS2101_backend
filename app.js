@@ -76,12 +76,33 @@ const nodeCron = require("node-cron");
 
 const port = process.env.PORT || 8080;
 
+const { verifySocketJWT } = require("./socket/socket.js");
+
 const start = async () => {
     try {
         await connectDB(process.env.MONGO_URI);
-        app.listen(port, () =>
+        const server = app.listen(port, () =>
             console.log(`Server is listening on port ${port}...`)
         );
+
+        const io = require("socket.io")(server, {
+            cors: {
+                origin: [
+                    "https://rmit-what-to-eat.netlify.app",
+                    "http://localhost:3000",
+                ],
+            },
+        });
+
+        io.on("connection", (socket) => {
+            socket.on("subscribe", async (userId) => {
+                socket.join(userId);
+            });
+        });
+
+        io.use(verifySocketJWT);
+
+        app.set("io", io);
     } catch (error) {
         console.log(error);
     }

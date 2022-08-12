@@ -5,6 +5,9 @@ const Order = require("../models/Order");
 const Food = require("../models/Food");
 const User = require("../models/User");
 
+const { createJWT } = require("../utils/index");
+const { notifySocket } = require("../socket/socket");
+
 const openFoodOrder = async (req, res) => {
     const {
         body: { foodId, quantity },
@@ -68,6 +71,8 @@ const orderFood = async (req, res) => {
         totalPrice: price * numberOfFood,
         totalPrepareTime: prepareTime * numberOfFood,
     });
+
+    notifySocket(req.app.get("io"), vendor, order);
 
     res.status(StatusCodes.OK).json({ order });
 };
@@ -152,4 +157,37 @@ const fulfillOrder = async (req, res) => {
     res.status(StatusCodes.OK).json({ msg: "Order is fulfilled" });
 };
 
-module.exports = { openFoodOrder, orderFood, getOrders, fulfillOrder };
+const getSubscriptionToken = async (req, res) => {
+    const {
+        user: { userId },
+    } = req;
+
+    const user = await User.findOne({ _id: userId, role: "vendor" });
+    if (!user) {
+        throw new CustomError.NotFoundError("Your account does not exist");
+    }
+
+    const { username, email, role } = user;
+
+    const tokenUser = {
+        username,
+        email,
+        userId,
+        role,
+    };
+
+    const accessTokenJWT = createJWT(
+        { payload: { tokenUser } },
+        process.env.JWT_SECRET
+    );
+
+    res.status(StatusCodes.OK).json({ token: accessTokenJWT });
+};
+
+module.exports = {
+    openFoodOrder,
+    orderFood,
+    getOrders,
+    fulfillOrder,
+    getSubscriptionToken,
+};
