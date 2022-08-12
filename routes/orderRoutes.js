@@ -6,7 +6,12 @@ const {
     authorizePermissions,
 } = require("../middleware/authentication");
 
-const { openFoodOrder, orderFood } = require("../controllers/orderController");
+const {
+    openFoodOrder,
+    orderFood,
+    getOrders,
+    fulfillOrder,
+} = require("../controllers/orderController");
 
 router
     .route("/openFoodOrder")
@@ -15,5 +20,16 @@ router
 router
     .route("/orderFood")
     .post([authenticateUser, authorizePermissions("student")], orderFood);
+
+router
+    .route("/getOrders")
+    .get(
+        [authenticateUser, authorizePermissions("student", "vendor")],
+        getOrders
+    );
+
+router
+    .route("/fulfillOrder/:id")
+    .patch([authenticateUser, authorizePermissions("vendor")], fulfillOrder);
 
 module.exports = router;

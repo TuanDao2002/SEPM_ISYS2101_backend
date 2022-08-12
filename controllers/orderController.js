@@ -37,7 +37,7 @@ const orderFood = async (req, res) => {
         );
     }
 
-    const { quantity, price } = food;
+    const { quantity, price, vendor, prepareTime } = food;
 
     if (quantity === 0) {
         throw new CustomError.BadRequestError(
@@ -63,11 +63,93 @@ const orderFood = async (req, res) => {
     const order = await Order.create({
         user: userId,
         food: foodId,
+        vendor,
         numberOfFood,
         totalPrice: price * numberOfFood,
+        totalPrepareTime: prepareTime * numberOfFood,
     });
 
     res.status(StatusCodes.OK).json({ order });
 };
 
-module.exports = { openFoodOrder, orderFood };
+const getOrders = async (req, res) => {
+    let {
+        user: { userId, role },
+        query: { isFulfilled, next_cursor },
+    } = req;
+
+    if (role !== "student" && role !== "vendor") {
+        return;
+    }
+
+    const queryObject = {};
+    queryObject.isFulfilled = isFulfilled === "true" ? true : false;
+
+    const resultsLimitPerLoading = 10;
+    if (next_cursor) {
+        const [createdAt, _id] = Buffer.from(next_cursor, "base64")
+            .toString("ascii")
+            .split("_");
+
+        if (role === "student") {
+            queryObject.user = userId;
+            queryObject.createdAt = { $lte: createdAt };
+            queryObject._id = { $lt: _id };
+        } else if (role === "vendor") {
+            queryObject.vendor = userId;
+            queryObject.createdAt = { $gte: createdAt };
+            queryObject._id = { $gt: _id };
+        }
+    }
+
+    let orders = Order.find(queryObject)
+        .populate({
+            path: "user",
+            select: "-_id username",
+        })
+        .populate({ path: "food", select: "_id foodName" })
+        .populate({ path: "vendor", select: "-_id username" });
+
+    if (role === "student") {
+        orders = orders.sort("-createdAt -_id");
+    } else if (role === "vendor") {
+        orders = orders.sort("createdAt _id");
+    }
+
+    orders = orders.limit(resultsLimitPerLoading);
+    const results = await orders;
+
+    const count = await Order.countDocuments(queryObject);
+    next_cursor = null;
+
+    // if the there are still remaining results, create a cursor to load the next ones
+    if (count !== results.length) {
+        const lastResult = results[results.length - 1];
+        next_cursor = Buffer.from(
+            lastResult.createdAt.toISOString() + "_" + lastResult._id
+        ).toString("base64");
+    }
+
+    res.status(StatusCodes.OK).json({ results, next_cursor });
+};
+
+const fulfillOrder = async (req, res) => {
+    const {
+        user: { userId },
+        params: { id: orderId },
+    } = req;
+
+    const order = await Order.findOne({ _id: orderId, vendor: userId });
+    if (!order) {
+        throw new CustomError.BadRequestError(
+            "This order does not exist or this vendor does not own this order"
+        );
+    }
+
+    order.isFulfilled = true;
+    await order.save();
+
+    res.status(StatusCodes.OK).json({ msg: "Order is fulfilled" });
+};
+
+module.exports = { openFoodOrder, orderFood, getOrders, fulfillOrder };
