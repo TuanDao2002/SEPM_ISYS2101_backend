@@ -12,6 +12,7 @@ const {
     getOrders,
     fulfillOrder,
     getSubscriptionToken,
+    momoReturn,
 } = require("../controllers/orderController");
 
 router
@@ -39,5 +40,9 @@ router
         [authenticateUser, authorizePermissions("vendor")],
         getSubscriptionToken
     );
+
+router
+    .route("/momoReturn")
+    .get(momoReturn);
 
 module.exports = router;

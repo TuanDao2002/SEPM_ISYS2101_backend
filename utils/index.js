@@ -6,6 +6,7 @@ const sendOTPtoEmail = require("./sendOTPtoEmail");
 const sendVerificationEmail = require("./sendVerificationEmail");
 const getIP = require("./getIP");
 const attachCookiesToResponse = require("./attachCookiesToResponse");
+const paymentWithMomo = require("./paymentWithMomo");
 const connectedUsers = require("./connectedUser");
 
 module.exports = {
@@ -18,5 +19,6 @@ module.exports = {
     sendVerificationEmail,
     getIP,
     attachCookiesToResponse,
-    connectedUsers
+    paymentWithMomo,
+    connectedUsers,
 };

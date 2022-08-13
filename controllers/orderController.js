@@ -5,7 +5,7 @@ const Order = require("../models/Order");
 const Food = require("../models/Food");
 const User = require("../models/User");
 
-const { createJWT } = require("../utils/index");
+const { paymentWithMomo, createJWT } = require("../utils/index");
 const { notifySocket } = require("../socket/socket");
 
 const openFoodOrder = async (req, res) => {
@@ -60,9 +60,6 @@ const orderFood = async (req, res) => {
         );
     }
 
-    food.quantity = quantity - numberOfFood;
-    await food.save();
-
     let order = await Order.create({
         user: userId,
         food: foodId,
@@ -72,17 +69,11 @@ const orderFood = async (req, res) => {
         totalPrepareTime: prepareTime * numberOfFood,
     });
 
-    order = await order
-        .populate({
-            path: "user",
-            select: "-_id username",
-        })
-        .populate({ path: "food", select: "_id foodName" })
-        .populate({ path: "vendor", select: "-_id username" }).execPopulate();
-
-    notifySocket(req.app.io, vendor, order);
-
-    res.status(StatusCodes.OK).json({ order });
+    let paymentResult = await paymentWithMomo(order._id, order.totalPrice);
+    res.status(StatusCodes.OK).json({
+        msg: "Please pay with Momo to complete the order",
+        payUrl: paymentResult.payUrl,
+    });
 };
 
 const getOrders = async (req, res) => {
@@ -192,10 +183,39 @@ const getSubscriptionToken = async (req, res) => {
     res.status(StatusCodes.OK).json({ token: accessTokenJWT });
 };
 
+const momoReturn = async (req, res) => {
+    const { orderId } = req.query;
+
+    let order = await Order.findOne({ _id: orderId });
+    order = await order
+        .populate({
+            path: "user",
+            select: "-_id username",
+        })
+        .populate({ path: "food", select: "_id foodName" })
+        .populate({ path: "vendor", select: "-_id username" })
+        .execPopulate();
+
+    if (!order) {
+        throw new CustomError.NotFoundError("Order does not exist");
+    }
+
+    const { food, vendor, numberOfFood } = order;
+
+    const findFood = await Food.findOne({ _id: food });
+    findFood.quantity = findFood.quantity - numberOfFood;
+    await findFood.save();
+
+    notifySocket(req.app.io, vendor, order);
+
+    res.status(StatusCodes.OK).json(order);
+};
+
 module.exports = {
     openFoodOrder,
     orderFood,
     getOrders,
     fulfillOrder,
     getSubscriptionToken,
+    momoReturn,
 };

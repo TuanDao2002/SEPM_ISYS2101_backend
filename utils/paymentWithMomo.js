@@ -1,18 +1,18 @@
 const axios = require("axios");
 
-const paymentWithMomo = async (req, res) => {
+const paymentWithMomo = async (orderId, amount) => {
     const endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
+    const serverAPI = "http://localhost:8080/api/order";
 
     let partnerCode = "MOMOBLIB20220812";
     let accessKey = "GS3jssCpD5HB8yQF";
     let secretkey = "s6EkNgzyYMp9aM8GOB2DsSjWIUyYLk26";
-    let requestId = partnerCode + new Date().getTime();
-    let orderId = requestId;
-    let orderInfo = "pay with MoMo";
-    let redirectUrl = "https://food-suggestion-rmit.herokuapp.com/return";
-    let ipnUrl = "https://food-suggestion-rmit.herokuapp.com/notify";
-    // var ipnUrl = redirectUrl = "https://webhook.site/454e7b77-f177-4ece-8236-ddf1c26ba7f8";
-    let amount = "1000";
+    let requestId = orderId;
+    // let orderId = requestId;
+    let orderInfo = "pay with MoMo for order with ID: " + orderId;
+    let redirectUrl = `${serverAPI}/momoReturn`;
+    let ipnUrl = `${serverAPI}/momoNotify`;
+    // let amount = amount;
     let requestType = "captureWallet";
     let extraData = ""; //pass empty value if your merchant does not have stores
 
@@ -38,16 +38,16 @@ const paymentWithMomo = async (req, res) => {
         "&requestType=" +
         requestType;
     //puts raw signature
-    console.log("--------------------RAW SIGNATURE----------------");
-    console.log(rawSignature);
+    // console.log("--------------------RAW SIGNATURE----------------");
+    // console.log(rawSignature);
     //signature
     const crypto = require("crypto");
     var signature = crypto
         .createHmac("sha256", secretkey)
         .update(rawSignature)
         .digest("hex");
-    console.log("--------------------SIGNATURE----------------");
-    console.log(signature);
+    // console.log("--------------------SIGNATURE----------------");
+    // console.log(signature);
 
     const data = {
         partnerCode: partnerCode,
@@ -62,26 +62,14 @@ const paymentWithMomo = async (req, res) => {
         requestType: requestType,
         signature: signature,
         lang: "en",
-
-        items: [{
-            id: 1,
-            name: "Cup Noodle",
-            price: 0,
-            quantity: 2,
-            totalPrice: 0,
-        }],
     };
 
-    axios
-        .post(endpoint, data)
-        .then(function (res) {
-            console.log(res.data);
-        })
-        .catch(function (err) {
-            console.log(err);
-        });
+    try {
+        const { data: response } = await axios.post(endpoint, data);
+        return response;
+    } catch (err) {
+        throw err.response.data;
+    }
 };
 
-paymentWithMomo();
-
-// module.exports = paymentWithMomo;
+module.exports = paymentWithMomo;
