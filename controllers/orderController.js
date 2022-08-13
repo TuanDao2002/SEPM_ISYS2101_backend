@@ -63,7 +63,7 @@ const orderFood = async (req, res) => {
     food.quantity = quantity - numberOfFood;
     await food.save();
 
-    const order = await Order.create({
+    let order = await Order.create({
         user: userId,
         food: foodId,
         vendor,
@@ -72,7 +72,15 @@ const orderFood = async (req, res) => {
         totalPrepareTime: prepareTime * numberOfFood,
     });
 
-    notifySocket(req.app.get("io"), vendor, order);
+    order = await order
+        .populate({
+            path: "user",
+            select: "-_id username",
+        })
+        .populate({ path: "food", select: "_id foodName" })
+        .populate({ path: "vendor", select: "-_id username" }).execPopulate();
+
+    notifySocket(req.app.io, vendor, order);
 
     res.status(StatusCodes.OK).json({ order });
 };

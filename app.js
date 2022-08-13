@@ -77,6 +77,7 @@ const nodeCron = require("node-cron");
 const port = process.env.PORT || 8080;
 
 const { verifySocketJWT } = require("./socket/socket.js");
+const { connectedUsers } = require("./utils");
 
 const start = async () => {
     try {
@@ -96,13 +97,13 @@ const start = async () => {
 
         io.on("connection", (socket) => {
             socket.on("subscribe", async (userId) => {
-                socket.join(userId);
+                connectedUsers[userId] = socket;
             });
         });
 
         io.use(verifySocketJWT);
 
-        app.set("io", io);
+        app.io = io;
     } catch (error) {
         console.log(error);
     }

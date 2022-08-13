@@ -1,5 +1,5 @@
 const CustomError = require("../errors");
-const { isTokenValid } = require("../utils");
+const { isTokenValid, connectedUsers } = require("../utils");
 
 const User = require("../models/User");
 
@@ -22,9 +22,9 @@ const verifySocketJWT = async (socket, next) => {
 };
 
 const notifySocket = (io, userId, payload) => {
-    io.on("connection", (socket) => {
-        socket.to(userId).emit("notification", payload);
-    });
+    const socket = connectedUsers[userId];
+    if (!socket) return;
+    io.to(socket.id).emit("notification", payload);
 };
 
 module.exports = { verifySocketJWT, notifySocket };
