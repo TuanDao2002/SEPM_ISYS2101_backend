@@ -2,6 +2,7 @@
     {
         "foodName": "Bun bo",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a Bun noodles with beef",
         "location": "Build 1",
         "price": 30000,
         "category": "Noodle",
@@ -13,6 +14,7 @@
     {
         "foodName": "Com suon",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a bowl of broken rice with BBQ pork",
         "location": "Build 2",
         "price": 65000,
         "category": "Rice",
@@ -24,6 +26,7 @@
     {
         "foodName": "Ham cheese",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a Sandwich with cheese and ham",
         "location": "Canteen",
         "price": 13000,
         "category": "Bread",
@@ -35,6 +38,7 @@
     {
         "foodName": "Taco",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a Mexican food",
         "location": "Hall",
         "price": 27500,
         "category": "Bread",
@@ -46,6 +50,7 @@
     {
         "foodName": "Spagheti",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a bowl of noodle with tomato sauce and meetballs",
         "location": "Ligon",
         "price": 68350,
         "category": "Noodle",
@@ -57,6 +62,7 @@
     {
         "foodName": "Pizza",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a bread with cheese and pepperoni",
         "location": "Ligon",
         "price": 350650,
         "category": "Bread",
@@ -68,6 +74,7 @@
     {
         "foodName": "Cheese cake",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a well known dessert with cheese cream on top",
         "location": "Sport hall",
         "price": 49000,
         "category": "Dessert",
@@ -79,6 +86,7 @@
     {
         "foodName": "Fish sandwich",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a Sandwich with fish",
         "location": "Circle K",
         "price": 14800,
         "category": "Bread",
@@ -90,6 +98,7 @@
     {
         "foodName": "Waffle",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a sweet snack for anybody",
         "location": "Canteen",
         "price": 40300,
         "category": "Bread",
@@ -101,6 +110,7 @@
     {
         "foodName": "Ice-cream",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a a well known ice-cream",
         "location": "Circle K",
         "price": 4000,
         "category": "Dessert",
@@ -112,6 +122,7 @@
     {
         "foodName": "English-breakfast",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a bowl with bacon with eggs, top with some bake bean and bread",
         "location": "Ligon",
         "price": 79000,
         "category": "Bread",
@@ -123,6 +134,7 @@
     {
         "foodName": "Cup noodle",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "Free over 7pm serve in the library",
         "location": "Library",
         "price": 0,
         "category": "Noodle",
@@ -134,6 +146,7 @@
     {
         "foodName": "Coffee",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "Refreshing drinks for anyone who are sleepy",
         "location": "Highland coffee",
         "price": 36000,
         "category": "Dessert",
@@ -145,6 +158,7 @@
     {
         "foodName": "Bubble Tea",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a snack drinks",
         "location": "Build 2",
         "price": 30000,
         "category": "Dessert",
@@ -156,6 +170,7 @@
     {
         "foodName": "Pho",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "A traditional Vietnamese food with noodles and beef",
         "location": "Build 2",
         "price": 65000,
         "category": "Noodle",
@@ -167,6 +182,7 @@
     {
         "foodName": "Tuna sandwich",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a bread",
         "location": "Circle K",
         "price": 13000,
         "category": "Bread",
