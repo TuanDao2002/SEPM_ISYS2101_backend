@@ -12,6 +12,7 @@ const {
     orderFood,
     getOrders,
     fulfillOrder,
+    removeOrder,
     getSubscriptionToken,
     momoReturn,
 } = require("../controllers/orderController");
@@ -38,6 +39,10 @@ router
 router
     .route("/fulfillOrder/:id")
     .patch([authenticateUser, authorizePermissions("vendor")], fulfillOrder);
+
+router
+    .route("/removeOrder/:id")
+    .delete([authenticateUser, authorizePermissions("vendor")], removeOrder);
 
 router
     .route("/getSubscriptionToken")

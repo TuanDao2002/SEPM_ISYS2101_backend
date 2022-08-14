@@ -173,10 +173,41 @@ const fulfillOrder = async (req, res) => {
         );
     }
 
+    const { isPaid } = order;
+    if (!isPaid) {
+        throw new CustomError.BadRequestError(
+            "Cannot fulfill this order because it is not paid"
+        );
+    }
+
     order.isFulfilled = true;
     await order.save();
 
     res.status(StatusCodes.OK).json({ msg: "Order is fulfilled" });
+};
+
+const removeOrder = async (req, res) => {
+    const {
+        user: { userId },
+        params: { id: orderId },
+    } = req;
+
+    const order = await Order.findOne({ _id: orderId, vendor: userId });
+    if (!order) {
+        throw new CustomError.BadRequestError(
+            "This order does not exist or this vendor does not own this order"
+        );
+    }
+
+    const { isPaid } = order;
+    if (isPaid) {
+        throw new CustomError.BadRequestError(
+            "Cannot remove this order because it is already paid"
+        );
+    }
+
+    await order.remove();
+    res.status(StatusCodes.OK).json({ msg: "Order is removed" });
 };
 
 const getSubscriptionToken = async (req, res) => {
@@ -251,6 +282,7 @@ module.exports = {
     orderFood,
     getOrders,
     fulfillOrder,
+    removeOrder,
     getSubscriptionToken,
     momoReturn,
 };
