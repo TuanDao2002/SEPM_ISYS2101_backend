@@ -36,6 +36,12 @@ const OrderSchema = new mongoose.Schema(
             required: true,
         },
 
+        isPaid: {
+            type: Boolean,
+            default: false,
+            required: true,
+        },
+
         isFulfilled: {
             type: Boolean,
             default: false,

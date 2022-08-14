@@ -27,6 +27,25 @@ const openFoodOrder = async (req, res) => {
     res.status(StatusCodes.OK).json({ food });
 };
 
+const closeFoodOrder = async (req, res) => {
+    const {
+        body: { foodId },
+        user: { userId },
+    } = req;
+
+    const food = await Food.findOne({ _id: foodId, vendor: userId });
+    if (!food) {
+        throw new CustomError.BadRequestError(
+            `Food with id ${foodId} does not exist or this vendor does not own this food`
+        );
+    }
+
+    food.quantity = 0;
+    await food.save();
+
+    res.status(StatusCodes.OK).json({ food });
+};
+
 const orderFood = async (req, res) => {
     const {
         body: { foodId, numberOfFood },
@@ -68,6 +87,10 @@ const orderFood = async (req, res) => {
         totalPrice: price * numberOfFood,
         totalPrepareTime: prepareTime * numberOfFood,
     });
+
+    const findFood = await Food.findOne({ _id: foodId });
+    findFood.quantity = findFood.quantity - numberOfFood;
+    await findFood.save();
 
     let paymentResult = await paymentWithMomo(order._id, order.totalPrice);
     res.status(StatusCodes.OK).json({
@@ -200,19 +223,31 @@ const momoReturn = async (req, res) => {
         throw new CustomError.NotFoundError("Order does not exist");
     }
 
-    const { food, vendor, numberOfFood } = order;
+    order.isPaid = true;
+    await order.save();
 
-    const findFood = await Food.findOne({ _id: food });
-    findFood.quantity = findFood.quantity - numberOfFood;
-    await findFood.save();
+    const {
+        user: { username },
+        food: { foodName },
+        vendor: { _id: vendorId, username: vendorName },
+        totalPrice,
+        totalPrepareTime,
+    } = order;
 
-    notifySocket(req.app.io, vendor, order);
+    // const findFood = await Food.findOne({ _id: food });
+    // findFood.quantity = findFood.quantity - numberOfFood;
+    // await findFood.save();
 
-    res.status(StatusCodes.OK).json(order);
+    notifySocket(req.app.io, vendorId, order);
+
+    res.status(StatusCodes.OK).redirect(
+        `${process.env.REACT_APP_LINK}?user=${username}&&food=${foodName}&&vendor=${vendorName}&&totalPrice=${totalPrice}&&totalPrepareTime=${totalPrepareTime}`
+    );
 };
 
 module.exports = {
     openFoodOrder,
+    closeFoodOrder,
     orderFood,
     getOrders,
     fulfillOrder,

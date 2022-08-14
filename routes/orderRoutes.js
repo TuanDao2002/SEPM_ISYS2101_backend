@@ -8,6 +8,7 @@ const {
 
 const {
     openFoodOrder,
+    closeFoodOrder,
     orderFood,
     getOrders,
     fulfillOrder,
@@ -18,6 +19,10 @@ const {
 router
     .route("/openFoodOrder")
     .post([authenticateUser, authorizePermissions("vendor")], openFoodOrder);
+
+router
+    .route("/closeFoodOrder")
+    .post([authenticateUser, authorizePermissions("vendor")], closeFoodOrder);
 
 router
     .route("/orderFood")
@@ -41,8 +46,6 @@ router
         getSubscriptionToken
     );
 
-router
-    .route("/momoReturn")
-    .get(momoReturn);
+router.route("/momoReturn").get(momoReturn);
 
 module.exports = router;

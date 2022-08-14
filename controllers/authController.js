@@ -41,11 +41,13 @@ const register = async (req, res) => {
         throw new CustomError.BadRequestError("This email already exists");
     }
 
+    const minutesToExpire = 2;
     const verificationToken = makeVerificationToken(
         username,
         email,
         role,
-        process.env.VERIFICATION_SECRET
+        process.env.VERIFICATION_SECRET,
+        minutesToExpire
     );
 
     const origin = process.env.NODE_ENV === "dev" ? "http://localhost:3000" : process.env.REACT_APP_LINK; // later this is the origin link of Netlify client side
