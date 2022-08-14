@@ -246,7 +246,7 @@ const momoReturn = async (req, res) => {
             path: "user",
             select: "-_id username",
         })
-        .populate({ path: "food", select: "_id foodName" })
+        .populate({ path: "food", select: "_id foodName image" })
         .populate({ path: "vendor", select: "-_id username" })
         .execPopulate();
 
@@ -259,7 +259,7 @@ const momoReturn = async (req, res) => {
 
     const {
         user: { username },
-        food: { foodName },
+        food: { foodName, image },
         vendor: { _id: vendorId, username: vendorName },
         totalPrice,
         totalPrepareTime,
@@ -272,7 +272,7 @@ const momoReturn = async (req, res) => {
     notifySocket(req.app.io, vendorId, order);
 
     res.status(StatusCodes.OK).redirect(
-        `${process.env.REACT_APP_LINK}/order-detail?user=${username}&&food=${foodName}&&vendor=${vendorName}&&totalPrice=${totalPrice}&&totalPrepareTime=${totalPrepareTime}`
+        `${process.env.REACT_APP_LINK}/order-detail?user=${username}&&food=${foodName}&&image=${image}&&vendor=${vendorName}&&totalPrice=${totalPrice}&&totalPrepareTime=${totalPrepareTime}`
     );
 };
 
