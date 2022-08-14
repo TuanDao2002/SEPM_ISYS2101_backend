@@ -178,6 +178,7 @@
     {
         "foodName": "Bread",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a bread",
         "location": "Kings Bread Canteen",
         "price": 15000,
         "category": "Bread",
@@ -189,6 +190,7 @@
     {
         "foodName": "Udon",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is aa Udon bowl",
         "location": "Sorento",
         "price": 79000,
         "category": "Noodle",
@@ -200,6 +202,7 @@
     {
         "foodName": "Rice with crunchy chicken",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a rice bowl with crunchy chicken",
         "location": "Nine build 9",
         "price": 45000,
         "category": "Rice",
@@ -211,6 +214,7 @@
     {
         "foodName": "Tom Yum",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a rice with a plate of delicious Tom Yum",
         "location": "Build 8 floor 2",
         "price": 55000,
         "category": "Rice",
@@ -222,6 +226,7 @@
     {
         "foodName": "Nachos bowl with rice",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a bowl of green rice with salad and toping of choices (chicken, beef, or pork)",
         "location": "Lacatina",
         "price": 47000,
         "category": "Rice",
@@ -233,6 +238,7 @@
     {
         "foodName": "Curry",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a bowl of curry and rice",
         "location": "Curry",
         "price": 60000,
         "category": "Rice",
@@ -244,6 +250,7 @@
     {
         "foodName": "Salad bowl",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a typical bowl of salad",
         "location": "Lacatina",
         "price": 15000,
         "category": "Bread",
@@ -255,6 +262,7 @@
     {
         "foodName": "Noodle with dumpling",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a Vietnamese cuisine with noodles and dumplings",
         "location": "Canteen",
         "price": 60000,
         "category": "Noodle",
@@ -266,6 +274,7 @@
     {
         "foodName": "Steak",
         "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "This is a Piece of medium rare steak",
         "location": "Sport hall",
         "price": 255000,
         "category": "Bread",
