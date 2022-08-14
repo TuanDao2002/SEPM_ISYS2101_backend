@@ -272,7 +272,7 @@ const momoReturn = async (req, res) => {
     notifySocket(req.app.io, vendorId, order);
 
     res.status(StatusCodes.OK).redirect(
-        `${process.env.REACT_APP_LINK}?user=${username}&&food=${foodName}&&vendor=${vendorName}&&totalPrice=${totalPrice}&&totalPrepareTime=${totalPrepareTime}`
+        `${process.env.REACT_APP_LINK}/order-detail?user=${username}&&food=${foodName}&&vendor=${vendorName}&&totalPrice=${totalPrice}&&totalPrepareTime=${totalPrepareTime}`
     );
 };
 
