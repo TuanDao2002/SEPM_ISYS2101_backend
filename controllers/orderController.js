@@ -110,7 +110,14 @@ const getOrders = async (req, res) => {
     }
 
     const queryObject = {};
-    queryObject.isFulfilled = isFulfilled === "true" ? true : false;
+    queryObject.isAvailable = true;
+
+    if (role === "student") {
+        queryObject.user = userId;
+    } else if (role === "vendor") {
+        queryObject.vendor = userId;
+        queryObject.isFulfilled = isFulfilled === "true" ? true : false;
+    }
 
     const resultsLimitPerLoading = 10;
     if (next_cursor) {
@@ -119,11 +126,9 @@ const getOrders = async (req, res) => {
             .split("_");
 
         if (role === "student") {
-            queryObject.user = userId;
             queryObject.createdAt = { $lte: createdAt };
             queryObject._id = { $lt: _id };
         } else if (role === "vendor") {
-            queryObject.vendor = userId;
             queryObject.createdAt = { $gte: createdAt };
             queryObject._id = { $gt: _id };
         }
@@ -206,7 +211,8 @@ const removeOrder = async (req, res) => {
         );
     }
 
-    await order.remove();
+    order.isAvailable = false;
+    await order.save();
     res.status(StatusCodes.OK).json({ msg: "Order is removed" });
 };
 
@@ -264,10 +270,6 @@ const momoReturn = async (req, res) => {
         totalPrice,
         totalPrepareTime,
     } = order;
-
-    // const findFood = await Food.findOne({ _id: food });
-    // findFood.quantity = findFood.quantity - numberOfFood;
-    // await findFood.save();
 
     notifySocket(req.app.io, vendorId, order);
 

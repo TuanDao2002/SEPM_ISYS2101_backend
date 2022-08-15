@@ -42,7 +42,7 @@ router
 
 router
     .route("/removeOrder/:id")
-    .delete([authenticateUser, authorizePermissions("vendor")], removeOrder);
+    .patch([authenticateUser, authorizePermissions("vendor")], removeOrder);
 
 router
     .route("/getSubscriptionToken")

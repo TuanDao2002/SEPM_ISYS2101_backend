@@ -47,6 +47,12 @@ const OrderSchema = new mongoose.Schema(
             default: false,
             required: true,
         },
+
+        isAvailable: {
+            type: Boolean,
+            default: true,
+            required: true
+        }
     },
     { timestamps: true }
 );
