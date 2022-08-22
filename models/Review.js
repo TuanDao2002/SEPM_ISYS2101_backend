@@ -21,7 +21,7 @@ const ReviewSchema = new mongoose.Schema(
 			type: String,
 			required: [true, "Please provide the comment"],
 			minlength: [1, "Length must be greater than 1"],
-			maxlength: [100, "Length must be less than 100"],
+			maxlength: [300, "Length must be less than 300"],
 		},
 
 		user: {
