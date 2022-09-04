@@ -88,6 +88,17 @@ const orderFood = async (req, res) => {
         totalPrepareTime: prepareTime * numberOfFood,
     });
 
+    order = await order
+    .populate({
+        path: "user",
+        select: "-_id username",
+    })
+    .populate({ path: "food", select: "_id foodName image" })
+    .populate({ path: "vendor", select: "-_id username" })
+    .execPopulate();
+
+    console.log(order)
+
     notifySocket(req.app.io, vendor, order);
 
     const findFood = await Food.findOne({ _id: foodId });
