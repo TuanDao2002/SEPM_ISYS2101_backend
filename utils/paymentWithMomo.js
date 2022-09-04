@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const paymentWithMomo = async (orderId, amount) => {
     const endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
-    const serverAPI = "http://localhost:8080/api/order";
+    const serverAPI = process.env.NODE_ENV === "dev" ? "http://localhost:8080/api/order" : "https://food-suggestion-rmit.herokuapp.com/api/order";
 
     let partnerCode = "MOMOBLIB20220812";
     let accessKey = "GS3jssCpD5HB8yQF";
