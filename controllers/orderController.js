@@ -88,6 +88,8 @@ const orderFood = async (req, res) => {
         totalPrepareTime: prepareTime * numberOfFood,
     });
 
+    notifySocket(req.app.io, vendor, order);
+
     const findFood = await Food.findOne({ _id: foodId });
     findFood.quantity = findFood.quantity - numberOfFood;
     await findFood.save();
@@ -270,8 +272,6 @@ const momoReturn = async (req, res) => {
         totalPrice,
         totalPrepareTime,
     } = order;
-
-    notifySocket(req.app.io, vendorId, order);
 
     res.status(StatusCodes.OK).redirect(
         `${process.env.REACT_APP_LINK}/order-detail?user=${username}&&food=${foodName}&&image=${image}&&vendor=${vendorName}&&totalPrice=${totalPrice}&&totalPrepareTime=${totalPrepareTime}`
