@@ -1,221 +1,5 @@
 [
     {
-        "foodName": "Big breakfast",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "2 eggs, bacon, sausage, hashbrown, tomatoes and toasts",
-        "location": "Ligon",
-        "price": 80000,
-        "category": "Bread",
-        "type": "Breakfast",
-        "taste": ["Salty"],
-        "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Egss benedict",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "2 poach eggs, spinach, bacon on toasts",
-        "location": "Ligon",
-        "price": 70000,
-        "category": "Bread",
-        "type": "Breakfast",
-        "taste": ["Salty"],
-        "prepareTime": 5,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Cheesy Veggie Omelette",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "Omelette with cheese serve with veggie",
-        "location": "Ligon",
-        "price": 55000,
-        "category": "Bread",
-        "type": "Breakfast",
-        "taste": ["Salty"],
-        "prepareTime": 4,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Tropical food bowl",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "With Yogurt!!!",
-        "location": "Ligon",
-        "price": 45000,
-        "category": "Dessert",
-        "type": "Breakfast",
-        "taste": ["Sweet"],
-        "prepareTime": 3,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Bircher's muesli breakfast",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "Roll outs, grated fruit, milk, yogurt and fruit",
-        "location": "Sport hall",
-        "price": 60000,
-        "category": "Dessert",
-        "type": "Breakfast",
-        "taste": ["Sweet"],
-        "prepareTime": 3,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Pumpkin carrot soup",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "Serve with Toasts",
-        "location": "Ligon",
-        "price": 50000,
-        "category": "Soup",
-        "type": "Lunch",
-        "taste": ["Salty", "Sweet"],
-        "prepareTime": 5,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Rice porridge in clay pot",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "Fist or chicken your choice",
-        "location": "Ligon",
-        "price": 50000,
-        "category": "Soup",
-        "type": "Breakfast",
-        "taste": ["Salty"],
-        "prepareTime": 4,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Pho",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "Traditional",
-        "location": "Ligon",
-        "price": 55000,
-        "category": "Noodle",
-        "type": "Breakfast",
-        "taste": ["Salty"],
-        "prepareTime": 5,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Lasagna",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "Layer of beef, cheese, tomatoes sauce and pasta sheet",
-        "location": "Ligon",
-        "price": 90000,
-        "category": "Noodle",
-        "type": "Lunch",
-        "taste": ["Salty"],
-        "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Chicken Spagheti",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "Creamy sauce chicken (Pesto w/Pamesan cheese)",
-        "location": "Ligon",
-        "price": 80000,
-        "category": "Noodle",
-        "type": "Lunch",
-        "taste": ["Salty"],
-        "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Ham & Mushroom Carbonara",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "In creamy sauce",
-        "location": "Ligon",
-        "price": 80000,
-        "category": "Noodle",
-        "type": "Lunch",
-        "taste": ["Salty"],
-        "prepareTime": 7,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Spagheti",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "With original beef and tomato sauce",
-        "location": "Ligon",
-        "price": 80000,
-        "category": "Noodle",
-        "type": "Lunch",
-        "taste": ["Salty"],
-        "prepareTime": 4,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Chieck Pesto",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "Pizza with pesto sauce, poach chicken, and mozza cheese",
-        "location": "Ligon",
-        "price": 75000,
-        "category": "Bread",
-        "type": "Lunch",
-        "taste": ["Salty"],
-        "prepareTime": 10,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Hawaiian",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "Pizza",
-        "location": "Ligon",
-        "price": 75000,
-        "category": "Bread",
-        "type": "Lunch",
-        "taste": ["Salty"],
-        "prepareTime": 7,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Margherita",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "Pizza",
-        "location": "Ligon",
-        "price": 70000,
-        "category": "Bread",
-        "type": "Lunch",
-        "taste": ["Salty"],
-        "prepareTime": 8,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Veggie Delux",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "Pizza",
-        "location": "Ligon",
-        "price": 70000,
-        "category": "Bread",
-        "type": "Lunch",
-        "taste": ["Salty"],
-        "prepareTime": 9,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Mama Meata",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "Pizza",
-        "location": "Ligon",
-        "price": 90000,
-        "category": "Bread",
-        "type": "Lunch",
-        "taste": ["Salty"],
-        "prepareTime": 10,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
-        "foodName": "Margherita",
-        "vendor": "62b82426306dc430d8d2d57a",
-        "foodDescription": "Pizza",
-        "location": "Ligon",
-        "price": 70000,
-        "category": "Bread",
-        "type": "Lunch",
-        "taste": ["Salty"],
-        "prepareTime": 8,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
-    },
-    {
         "foodName": "Bun Bo Hue",
         "vendor": "62b82426306dc430d8d2d57a",
         "foodDescription": "Bun bo Hue",
@@ -225,7 +9,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 4,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662363760/file-upload/3dnih4O_rysonk.jpg"
     },
     {
         "foodName": "Pho Bo ",
@@ -237,7 +21,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 5,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061416/file-upload/Noodle_e6ng98.jpg"
     },
     {
         "foodName": "Mi Quang",
@@ -249,7 +33,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 4,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662363810/file-upload/Mi_Quang_1A_Danang_p6gvmq.jpg"
     },
     {
         "foodName": "Bun Moc",
@@ -261,7 +45,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 4,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662363836/file-upload/15976631565f3a67b487202_bagxzx.jpg"
     },
     {
         "foodName": "Nui",
@@ -273,7 +57,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 4,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662363866/file-upload/vietnamese-pork-ribs-macaroni-soup-nui-suon-21-500x500_rtuv8q.jpg"
     },
     {
         "foodName": "Banh canh",
@@ -285,7 +69,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 4,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662363906/file-upload/banh_canh_vietnamese_thick_noodle_soup_recipe_t1bxmz.jpg"
     },
     {
         "foodName": "Hu tieu hai san",
@@ -297,7 +81,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 4,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662363972/file-upload/Hu-Tieu-My-Tho-5-500x500_di4gz5.jpg"
     },
     {
         "foodName": "Banh mi",
@@ -309,7 +93,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364040/file-upload/delish-210222-seitan-banh-mi-01-portrait-jg-1627937223.jpg_isk6j0.jpg"
     },
     {
         "foodName": "Banh mi",
@@ -321,7 +105,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364040/file-upload/delish-210222-seitan-banh-mi-01-portrait-jg-1627937223.jpg_isk6j0.jpg"
     },
     {
         "foodName": "Banh mi",
@@ -333,7 +117,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364040/file-upload/delish-210222-seitan-banh-mi-01-portrait-jg-1627937223.jpg_isk6j0.jpg"
     },
     {
         "foodName": "Banh mi",
@@ -345,7 +129,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364040/file-upload/delish-210222-seitan-banh-mi-01-portrait-jg-1627937223.jpg_isk6j0.jpg"
     },
     {
         "foodName": "Banh mi",
@@ -357,7 +141,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364040/file-upload/delish-210222-seitan-banh-mi-01-portrait-jg-1627937223.jpg_isk6j0.jpg"
     },
     {
         "foodName": "Banh mi",
@@ -369,7 +153,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364040/file-upload/delish-210222-seitan-banh-mi-01-portrait-jg-1627937223.jpg_isk6j0.jpg"
     },
     {
         "foodName": "Banh mi",
@@ -381,7 +165,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364040/file-upload/delish-210222-seitan-banh-mi-01-portrait-jg-1627937223.jpg_isk6j0.jpg"
     },
     {
         "foodName": "Banh mi",
@@ -393,7 +177,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364040/file-upload/delish-210222-seitan-banh-mi-01-portrait-jg-1627937223.jpg_isk6j0.jpg"
     },
     {
         "foodName": "Banh mi",
@@ -405,7 +189,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364040/file-upload/delish-210222-seitan-banh-mi-01-portrait-jg-1627937223.jpg_isk6j0.jpg"
     },
     {
         "foodName": "Banh mi",
@@ -417,7 +201,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364040/file-upload/delish-210222-seitan-banh-mi-01-portrait-jg-1627937223.jpg_isk6j0.jpg"
     },
     {
         "foodName": "Banh mi",
@@ -429,7 +213,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364040/file-upload/delish-210222-seitan-banh-mi-01-portrait-jg-1627937223.jpg_isk6j0.jpg"
     },
     {
         "foodName": "Banh mi",
@@ -441,7 +225,7 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364040/file-upload/delish-210222-seitan-banh-mi-01-portrait-jg-1627937223.jpg_isk6j0.jpg"
     },
     {
         "foodName": "Banh mi",
@@ -453,6 +237,126 @@
         "type": "Breakfast",
         "taste": ["Salty"],
         "prepareTime": 6,
-        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1659061432/file-upload/Bread_kqjvix.jpg"
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364040/file-upload/delish-210222-seitan-banh-mi-01-portrait-jg-1627937223.jpg_isk6j0.jpg"
+    },
+    {
+        "foodName": "Chicken Curry",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "Curry",
+        "location": "Curry",
+        "price": 350000,
+        "category": "Rice",
+        "type": "Lunch",
+        "taste": ["Salty"],
+        "prepareTime": 5,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364162/file-upload/Bihari-Chicken-Curry-2-3_zsd2jn.jpg"
+    },
+    {
+        "foodName": "Tofu Vegan Curry",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "Curry",
+        "location": "Curry",
+        "price": 35000,
+        "category": "Rice",
+        "type": "Lunch",
+        "taste": ["Salty"],
+        "prepareTime": 7,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364218/file-upload/tofucurry-1_yqzvet.jpg"
+    },
+    {
+        "foodName": "Cheese Omelette",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "Eggs",
+        "location": "Curry",
+        "price": 350000,
+        "category": "Bread",
+        "type": "Breakfast",
+        "taste": ["Salty"],
+        "prepareTime": 4,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364261/file-upload/Omelette-blog-3_qhvvjk.jpg"
+    },
+    {
+        "foodName": "Egg Curry",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "Egg Curry",
+        "location": "Curry",
+        "price": 350000,
+        "category": "Rice",
+        "type": "Lunch",
+        "taste": ["Salty"],
+        "prepareTime": 4,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364311/file-upload/Dhaba-Style-Egg-Curry-1_bipjgd.jpg"
+    },
+    {
+        "foodName": "Butter Chicken",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "Butter Chicken",
+        "location": "Curry",
+        "price": 35000,
+        "category": "Rice",
+        "type": "Lunch",
+        "taste": ["Salty"],
+        "prepareTime": 4,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364170/file-upload/chicken-curry-11_ysu4wc.jpg"
+    },
+    {
+        "foodName": "Beef Curry",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "Curry",
+        "location": "Curry",
+        "price": 350000,
+        "category": "Rice",
+        "type": "Lunch",
+        "taste": ["Salty"],
+        "prepareTime": 7,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364347/file-upload/20200205-beef-curry-ehg-9728-jpg-1582823107.jpg_obolsq.jpg"
+    },
+    {
+        "foodName": "Spicy Chicken Burito",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "Burrito",
+        "location": "LA CANTINA",
+        "price": 450000,
+        "category": "Bread",
+        "type": "Lunch",
+        "taste": ["Salty"],
+        "prepareTime": 3,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364441/file-upload/lowkey_burritos_farley9_jimewz.jpg"
+    },
+    {
+        "foodName": "Fillet o Fish",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "Burrito",
+        "location": "LA CANTINA",
+        "price": 45000,
+        "category": "Bread",
+        "type": "Lunch",
+        "taste": ["Salty"],
+        "prepareTime": 3,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364441/file-upload/lowkey_burritos_farley9_jimewz.jpg"
+    },
+    {
+        "foodName": "Beef and beans",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "Burrito",
+        "location": "LA CANTINA",
+        "price": 45000,
+        "category": "Bread",
+        "type": "Lunch",
+        "taste": ["Salty"],
+        "prepareTime": 5,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364441/file-upload/lowkey_burritos_farley9_jimewz.jpg"
+    },
+    {
+        "foodName": "Pico de gallo",
+        "vendor": "62b82426306dc430d8d2d57a",
+        "foodDescription": "Nachos",
+        "location": "LA CANTINA",
+        "price": 35000,
+        "category": "Bread",
+        "type": "Lunch",
+        "taste": ["Salty"],
+        "prepareTime": 6,
+        "image": "https://res.cloudinary.com/dxvbvzxcb/image/upload/v1662364544/file-upload/Nachos-main-1-500x500_yoabke.jpg"
     }
 ]
