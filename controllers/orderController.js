@@ -280,12 +280,13 @@ const momoReturn = async (req, res) => {
         user: { username },
         food: { foodName, image },
         vendor: { _id: vendorId, username: vendorName },
+        numberOfFood,
         totalPrice,
         totalPrepareTime,
     } = order;
 
     res.status(StatusCodes.OK).redirect(
-        `${process.env.REACT_APP_LINK}/order-detail?user=${username}&&food=${foodName}&&image=${image}&&vendor=${vendorName}&&totalPrice=${totalPrice}&&totalPrepareTime=${totalPrepareTime}`
+        `${process.env.REACT_APP_LINK}/order-detail?user=${username}&&food=${foodName}&&image=${image}&&vendor=${vendorName}&&numberOfFood=${numberOfFood}&&totalPrice=${totalPrice}&&totalPrepareTime=${totalPrepareTime}`
     );
 };
 
