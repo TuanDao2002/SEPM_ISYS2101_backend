@@ -1,23 +1,23 @@
 [
     {
         "rating": 4,
-        "title": "Noodle is good!!",
-        "comment": "The noodle bring back so many memories as a students. It's is truly an emergency food that helps when you have no time and needs something to eat quickly",
+        "title": "Food is good!!",
+        "comment": "The food brings back so many memories as a students. It's is truly an emergency food that helps when you have no time and needs something to eat quickly",
         "user": "62ecf0b70299eb00239d9cd4",
-        "food": "63032d2572093ecfa78a12c8"
+        "food": "63176388213a93306458e265"
     },
     {
         "rating": 1,
-        "title": "Noodle is not as it seems...",
-        "comment": "The cup noodles is good but there are lack of meet or eggs so it is pretty plain, lame and boring...",
+        "title": "Food is not as it seems...",
+        "comment": "The food is good but there are lack of meet or eggs so it is pretty plain, lame and boring...",
         "user": "62e795be0d005500231377c2",
-        "food": "63032d2572093ecfa78a12c8"
+        "food": "63176388213a93306458e265"
     },
     {
         "rating": 5,
-        "title": "Thank you so much for these cup noodles!!!",
-        "comment": "Recently, I have been struggling with the Deadlines and I have to stuck in the library...thanks to cup noodles, not only it is free but it helps me get energy to keep rushing the deadline",
+        "title": "Thank you so much for this food!!!",
+        "comment": "Recently, I have been struggling with the Deadlines and I have to stuck in the library...thanks to this food, not only it is free but it helps me get energy to keep rushing the deadline",
         "user": "62dd0e752eb0dd002360c680",
-        "food": "63032d2572093ecfa78a12c8"
+        "food": "63176388213a93306458e265"
     }
 ]

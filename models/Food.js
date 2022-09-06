@@ -28,7 +28,7 @@ const FoodSchema = new mongoose.Schema(
             type: String,
             required: [true, "Please provide the location"],
             minlength: [3, "Length must be greater than 3"],
-            maxlength: [20, "Length must be less than 20"],
+            maxlength: [100, "Length must be less than 100"],
             trim: true,
         },
 

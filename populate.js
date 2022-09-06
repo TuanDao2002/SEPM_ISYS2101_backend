@@ -4,7 +4,7 @@ const connectDB = require("./db/connect");
 const Food = require("./models/Food");
 const Review = require("./models/Review");
 
-const jsonProducts = require("./food.json");
+const jsonProducts = require("./foodData.json");
 const jsonReviews = require("./review.json");
 
 const { createAllAttributeSets, findSimilar } = require("./computation/index");
