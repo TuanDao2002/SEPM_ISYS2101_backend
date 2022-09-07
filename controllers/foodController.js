@@ -98,7 +98,7 @@ const getAllFood = async (req, res) => {
     const resultsLimitPerLoading = 4;
     let foods = Food.find(queryObject)
         .select(
-            "foodName price vendor averageRating weightRating image createdAt"
+            "foodName price vendor location averageRating weightRating image createdAt"
         )
         .populate({
             path: "vendor",
